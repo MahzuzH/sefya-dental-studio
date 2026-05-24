@@ -396,29 +396,6 @@ func GetReport(c *gin.Context) {
 		report.Images[ir.Type] = append(report.Images[ir.Type], ImageStorage.URL(ir.Path))
 	}
 
-	if len(report.Diagnosis) == 0 {
-		report.Diagnosis = []reportDiagnosis{
-			{
-				Tooth:                   17,
-				Disease:                 "Karies Gigi",
-				Color:                   "#E24B4A",
-				TreatmentRecommendation: "Email: fluoride treatment atau penambalan. Dentin: penambalan gigi. Pulpa: perawatan saluran akar atau cabut gigi.",
-			},
-			{
-				Tooth:                   21,
-				Disease:                 "Karang Gigi",
-				Color:                   "#888780",
-				TreatmentRecommendation: "Scalling (pembersihan karang gigi) menggunakan alat ultrasonik oleh dokter gigi.",
-			},
-			{
-				Tooth:                   46,
-				Disease:                 "Restorasi Gigi",
-				Color:                   "#1D9E75",
-				TreatmentRecommendation: "Observasi secara berkala.",
-			},
-		}
-	}
-
 	c.JSON(http.StatusOK, report)
 }
 
