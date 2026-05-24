@@ -393,7 +393,7 @@ func GetReport(c *gin.Context) {
 		Scan(&imageRows).Error
 
 	for _, ir := range imageRows {
-		report.Images[ir.Type] = append(report.Images[ir.Type], ir.Path)
+		report.Images[ir.Type] = append(report.Images[ir.Type], ImageStorage.URL(ir.Path))
 	}
 
 	if len(report.Diagnosis) == 0 {
@@ -516,7 +516,7 @@ func GetCheckupByID(c *gin.Context) {
 
 	images := map[string][]string{}
 	for _, ir := range imageRows {
-		images[ir.Type] = append(images[ir.Type], ir.Path)
+		images[ir.Type] = append(images[ir.Type], ImageStorage.URL(ir.Path))
 	}
 
 	c.JSON(http.StatusOK, gin.H{
@@ -703,7 +703,7 @@ func CreateCheckup(c *gin.Context) {
 		var valueArgs []interface{}
 		for _, img := range req.Images {
 			imgType := strings.TrimSpace(img.ImageType)
-			imgPath := strings.TrimSpace(img.ImagePath)
+			imgPath := ImageStorage.Key(strings.TrimSpace(img.ImagePath))
 			if imgType == "" || imgPath == "" {
 				tx.Rollback()
 				c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid image entry"})
@@ -883,7 +883,7 @@ func UpdateCheckup(c *gin.Context) {
 		}
 		for _, img := range req.Images {
 			imgType := strings.TrimSpace(img.ImageType)
-			imgPath := strings.TrimSpace(img.ImagePath)
+			imgPath := ImageStorage.Key(strings.TrimSpace(img.ImagePath))
 			if imgType == "" || imgPath == "" {
 				tx.Rollback()
 				c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid image entry"})
