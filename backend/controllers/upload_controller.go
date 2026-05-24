@@ -1,7 +1,11 @@
 package controllers
 
 import (
+	"bytes"
 	"fmt"
+	"image"
+	"image/jpeg"
+	"io"
 	"net/http"
 	"path/filepath"
 	"strings"
@@ -13,6 +17,18 @@ import (
 )
 
 var ImageStorage storage.Storage
+
+func compressImage(r io.Reader) ([]byte, error) {
+	img, _, err := image.Decode(r)
+	if err != nil {
+		return nil, err
+	}
+	var buf bytes.Buffer
+	if err := jpeg.Encode(&buf, img, &jpeg.Options{Quality: 70}); err != nil {
+		return nil, err
+	}
+	return buf.Bytes(), nil
+}
 
 func UploadImage(c *gin.Context) {
 	file, err := c.FormFile("file")
@@ -40,9 +56,16 @@ func UploadImage(c *gin.Context) {
 	}
 	defer src.Close()
 
-	filename := fmt.Sprintf("%d_%s%s", time.Now().UnixNano(), strings.TrimSuffix(filepath.Base(file.Filename), ext), ext)
+	compressed, err := compressImage(src)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to compress image"})
+		return
+	}
 
-	if err := ImageStorage.Save(filename, src); err != nil {
+	basename := strings.TrimSuffix(filepath.Base(file.Filename), ext)
+	filename := fmt.Sprintf("%d_%s.jpg", time.Now().UnixNano(), basename)
+
+	if err := ImageStorage.Save(filename, bytes.NewReader(compressed)); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to save file"})
 		return
 	}
