@@ -5,11 +5,22 @@ import (
 	"dental-app/controllers"
 	"dental-app/routes"
 	"dental-app/storage"
+	"fmt"
+	"os"
 
 	"github.com/gin-gonic/gin"
 )
 
+func requireEnv(key string) {
+	if os.Getenv(key) == "" {
+		panic(fmt.Sprintf("Required environment variable %s is not set", key))
+	}
+}
+
 func main() {
+	requireEnv("JWT_SECRET")
+	requireEnv("DB_PASS")
+
 	r := gin.Default()
 
 	config.ConnectDB()

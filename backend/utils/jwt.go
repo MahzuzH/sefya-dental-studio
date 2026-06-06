@@ -11,7 +11,7 @@ var SECRET = func() []byte {
 	if s := os.Getenv("JWT_SECRET"); s != "" {
 		return []byte(s)
 	}
-	return []byte("secret-key")
+	panic("JWT_SECRET is not set — application will not start without a secure secret")
 }()
 
 func GenerateToken(userID string, role string) (string, error) {
