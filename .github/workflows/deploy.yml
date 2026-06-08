@@ -1,0 +1,23 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.2.2
+        with:
+          host: 43.134.96.192
+          username: ubuntu
+          key: ${{ secrets.SSH_DEPLOY_KEY }}
+          script: |
+            cd /opt/mahzuz
+            git pull origin main
+            cd /opt/mahzuz/backend && go build -o /opt/mahzuz/sefya-api .
+            cd /opt/mahzuz/frontend && npm install && npm run build
+            sudo systemctl restart sefya-api
