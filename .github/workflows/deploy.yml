@@ -18,7 +18,8 @@ jobs:
                   password: ${{ secrets.VPS_PASSWORD }}
                   script: |
                       cd /opt/mahzuz
-                      git pull origin main
+                      git fetch --all
+                      git reset --hard origin/main
                       cd /opt/mahzuz/backend && go build -o /opt/mahzuz/sefya-api .
                       cd /opt/mahzuz/frontend && npm install && npm run build
                       sudo systemctl restart sefya-api
