@@ -1,23 +1,31 @@
 name: Deploy to VPS
 
 on:
-  push:
-    branches: [main]
+    push:
+        branches: [main]
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v1.2.2
-        with:
-          host: 43.134.96.192
-          username: ubuntu
-          key: ${{ secrets.SSH_DEPLOY_KEY }}
-          script: |
-            cd /opt/mahzuz
-            git pull origin main
-            cd /opt/mahzuz/backend && go build -o /opt/mahzuz/sefya-api .
-            cd /opt/mahzuz/frontend && npm install && npm run build
-            sudo systemctl restart sefya-api
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Setup SSH Agent
+              uses: webfactory/ssh-agent@v0.9.0
+              with:
+                  ssh-private-key: ${{ secrets.SSH_DEPLOY_KEY }}
+
+            - name: Add VPS host key
+              run: |
+                  mkdir -p ~/.ssh
+                  ssh-keyscan 43.134.96.192 >> ~/.ssh/known_hosts
+
+            - name: Deploy
+              run: |
+                  ssh ubuntu@43.134.96.192 '
+                    cd /opt/mahzuz
+                    git pull origin main
+                    cd /opt/mahzuz/backend && go build -o /opt/mahzuz/sefya-api .
+                    cd /opt/mahzuz/frontend && npm install && npm run build
+                    sudo systemctl restart sefya-api
+                  '
