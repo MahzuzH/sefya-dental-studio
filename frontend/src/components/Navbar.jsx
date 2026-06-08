@@ -36,7 +36,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed w-full z-50 transition-all duration-300 border-b ${isScrolled ? "bg-white/90 backdrop-blur-xl border-slate-200 py-4 shadow-sm" : "bg-transparent border-transparent py-6"}`}
+      className={`fixed w-full z-50 transition-all duration-300 border-b ${isScrolled ? "bg-white backdrop-blur-xl border-slate-200 py-3 shadow-md" : "bg-white/80 backdrop-blur-md border-slate-100 py-5"}`}
     >
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex justify-between items-center">
@@ -44,20 +44,13 @@ const Navbar = () => {
           <Link
             to="/"
             onClick={(e) => handleSmoothScroll(e, "#home")}
-            className="flex items-center gap-3 group"
+            className="flex items-center gap-3 p-1.5 -ml-1.5 rounded-xl transition-colors hover:bg-black/5"
           >
-            <div className="relative flex items-center justify-center w-10 h-10 rounded-xl overflow-hidden shadow-2xl border border-white/10 group-hover:border-white/20 transition-colors">
-              <img
-                src="/logo.jpg"
-                alt="Logo Sefya Dental Studio"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <span
-              className={`font-montserrat text-lg font-bold tracking-tight text-[#0f172a]`}
-            >
-              Sefya Dental Studio
-            </span>
+            <img
+              src="/logo-navbar.png"
+              alt="Sefya Dental Studio"
+              className="h-12 md:h-16 w-auto"
+            />
           </Link>
 
           {/* Desktop Menu */}
