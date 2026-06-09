@@ -64,47 +64,50 @@ export default function DashboardPage() {
         : "";
 
     return (
-        <div className="h-screen w-screen overflow-hidden bg-gradient-to-br from-violet-50 via-white to-fuchsia-50 text-slate-900 transition-colors">
+        <div className="h-screen w-screen overflow-hidden bg-gradient-to-br from-[#fff5f7] via-white to-rose-50 text-slate-900 font-poppins">
             <div className="h-full w-full">
                 <Sidebar active="dashboard" />
 
-                <main className="h-full space-y-3 overflow-hidden p-3 sm:p-4 lg:pl-[17rem]">
-                    <header className="flex flex-wrap items-center justify-between gap-2 rounded-2xl border border-violet-100 bg-white p-3 shadow-sm">
-                        <div className="flex items-center gap-2 rounded-xl border border-violet-100 bg-violet-50 px-3 py-2">
-                            <Search size={16} className="text-slate-500" />
+                <main className="h-full space-y-4 overflow-y-auto p-4 sm:p-5 lg:pl-[17.5rem]">
+                    <header className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-rose-100 bg-white px-4 py-3 shadow-sm">
+                        <div className="flex items-center gap-2.5 rounded-lg border border-rose-100 bg-rose-50 px-3 py-2">
+                            <Search size={15} className="text-slate-400" />
                             <Input
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 placeholder="Cari nama, instansi, status..."
-                                className="h-auto w-[220px] border-none bg-transparent p-0 text-sm shadow-none focus-visible:ring-0"
+                                className="h-auto w-[200px] border-none bg-transparent p-0 text-sm shadow-none focus-visible:ring-0 placeholder:text-slate-400"
                             />
                         </div>
 
                         <div className="flex flex-wrap items-center gap-2">
                             <Button
                                 variant="outline"
+                                size="sm"
                                 className="gap-2"
                                 onClick={handleDownloadReport}
                             >
-                                <Download size={15} /> Download Report
+                                <Download size={14} /> Download Report
                             </Button>
 
                             <Button
                                 variant="outline"
                                 size="icon"
+                                className="h-8 w-8"
                                 aria-label="Notifikasi"
                             >
-                                <Bell size={16} />
+                                <Bell size={15} />
                             </Button>
-                            <Button variant="outline" className="gap-2">
-                                <User size={16} /> Admin
+                            <Button variant="outline" size="sm" className="gap-2">
+                                <User size={14} /> Admin
                             </Button>
                             <Button
                                 variant="destructive"
+                                size="sm"
                                 className="gap-2"
                                 onClick={handleLogout}
                             >
-                                <LogOut size={16} /> Logout
+                                <LogOut size={14} /> Logout
                             </Button>
                         </div>
                     </header>
@@ -116,44 +119,44 @@ export default function DashboardPage() {
                     )}
 
                     <section className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-                        <Card className="border-violet-100 bg-white">
-                            <CardContent className="p-3">
-                                <p className="text-sm text-slate-500">
+                        <Card className="border-rose-100 bg-white transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
+                            <CardContent className="p-4">
+                                <p className="text-xs font-medium tracking-wide text-slate-500 uppercase">
                                     Pemeriksaan Hari Ini
                                 </p>
-                                <h2 className="mt-2 text-3xl font-bold">
+                                <p className="mt-2 text-3xl font-bold tracking-tight">
                                     {stats.today}
-                                </h2>
+                                </p>
                             </CardContent>
                         </Card>
-                        <Card className="border-violet-100 bg-white">
-                            <CardContent className="p-3">
-                                <p className="text-sm text-slate-500">
+                        <Card className="border-rose-100 bg-white transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
+                            <CardContent className="p-4">
+                                <p className="text-xs font-medium tracking-wide text-slate-500 uppercase">
                                     Total Pemeriksaan
                                 </p>
-                                <h2 className="mt-2 text-3xl font-bold">
+                                <p className="mt-2 text-3xl font-bold tracking-tight">
                                     {stats.total}
-                                </h2>
+                                </p>
                             </CardContent>
                         </Card>
-                        <Card className="border-violet-100 bg-white">
-                            <CardContent className="p-3">
-                                <p className="text-sm text-slate-500">
+                        <Card className="border-rose-100 bg-white transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
+                            <CardContent className="p-4">
+                                <p className="text-xs font-medium tracking-wide text-slate-500 uppercase">
                                     Pending
                                 </p>
-                                <h2 className="mt-2 text-3xl font-bold text-amber-500">
+                                <p className="mt-2 text-3xl font-bold tracking-tight text-amber-500">
                                     {stats.pending}
-                                </h2>
+                                </p>
                             </CardContent>
                         </Card>
-                        <Card className="border-violet-100 bg-white">
-                            <CardContent className="p-3">
-                                <p className="text-sm text-slate-500">
+                        <Card className="border-rose-100 bg-white transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
+                            <CardContent className="p-4">
+                                <p className="text-xs font-medium tracking-wide text-slate-500 uppercase">
                                     Completed
                                 </p>
-                                <h2 className="mt-2 text-3xl font-bold text-emerald-500">
+                                <p className="mt-2 text-3xl font-bold tracking-tight text-emerald-500">
                                     {stats.done}
-                                </h2>
+                                </p>
                             </CardContent>
                         </Card>
                     </section>
@@ -167,14 +170,14 @@ export default function DashboardPage() {
                     </Suspense>
 
                     <section className="grid gap-3 xl:grid-cols-3">
-                        <Card className="border-violet-100 bg-white xl:col-span-2">
-                            <CardContent className="p-3">
-                                <div className="mb-2 flex items-center justify-between">
-                                    <h3 className="text-base font-semibold">
+                        <Card className="border-rose-100 bg-white shadow-sm xl:col-span-2">
+                            <CardContent className="p-0">
+                                <div className="flex items-center justify-between border-b border-rose-100 px-5 py-3.5">
+                                    <h3 className="text-sm font-semibold text-slate-900">
                                         Pemeriksaan Terbaru
                                     </h3>
-                                    <Button className="gap-2" size="sm">
-                                        <Plus size={14} /> Pemeriksaan Baru
+                                    <Button className="gap-1.5" size="sm">
+                                        <Plus size={13} /> Pemeriksaan Baru
                                     </Button>
                                 </div>
 
@@ -183,47 +186,47 @@ export default function DashboardPage() {
                                         Loading data...
                                     </p>
                                 ) : (
-                                    <div className="overflow-x-auto">
+                                    <div className="overflow-x-auto rounded-lg border border-slate-100">
                                         <table className="w-full min-w-[680px] text-xs sm:text-sm">
                                             <thead>
-                                                <tr className="border-b border-violet-100 text-left text-slate-500">
-                                                    <th className="py-2">
+                                                <tr className="border-b border-slate-100 bg-slate-50/80 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
+                                                    <th className="px-4 py-3">
                                                         Nama
                                                     </th>
-                                                    <th className="py-2">
+                                                    <th className="px-4 py-3">
                                                         Instansi
                                                     </th>
-                                                    <th className="py-2">
+                                                    <th className="px-4 py-3">
                                                         Tanggal
                                                     </th>
-                                                    <th className="py-2">
+                                                    <th className="px-4 py-3">
                                                         Status
                                                     </th>
-                                                    <th className="py-2 text-center">
+                                                    <th className="px-4 py-3 text-center">
                                                         Aksi
                                                     </th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody className="divide-y divide-slate-50">
                                                 {recentExams.map((exam) => (
                                                     <tr
                                                         key={exam.id}
-                                                        className="border-b border-violet-50"
+                                                        className="transition-colors hover:bg-rose-50/40"
                                                     >
-                                                        <td className="py-2 font-medium">
+                                                        <td className="px-4 py-3 font-medium text-slate-900">
                                                             {exam.patientName}
                                                         </td>
-                                                        <td className="py-2">
+                                                        <td className="px-4 py-3 text-slate-600">
                                                             {exam.institution}
                                                         </td>
-                                                        <td className="py-2">
+                                                        <td className="px-4 py-3 text-slate-500">
                                                             {formatDate(
                                                                 exam.scanDate,
                                                             )}
                                                         </td>
-                                                        <td className="py-2">
+                                                        <td className="px-4 py-3">
                                                             <span
-                                                                className={`rounded-full px-2 py-1 text-xs font-semibold ${
+                                                                className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${
                                                                     exam.status ===
                                                                     "Completed"
                                                                         ? "bg-emerald-100 text-emerald-700"
@@ -233,11 +236,12 @@ export default function DashboardPage() {
                                                                 {exam.status}
                                                             </span>
                                                         </td>
-                                                        <td className="py-2">
+                                                        <td className="px-4 py-3">
                                                             <div className="flex items-center justify-center gap-2">
                                                                 <Button
                                                                     size="sm"
                                                                     variant="outline"
+                                                                    className="h-8 px-3 text-xs"
                                                                     onClick={() =>
                                                                         handleViewReport(
                                                                             exam.token ||
@@ -249,7 +253,7 @@ export default function DashboardPage() {
                                                                 </Button>
                                                                 <Button
                                                                     size="sm"
-                                                                    className="gap-1"
+                                                                    className="h-8 gap-1.5 px-3 text-xs"
                                                                     onClick={() =>
                                                                         handleOpenQR(
                                                                             exam,
@@ -258,9 +262,9 @@ export default function DashboardPage() {
                                                                 >
                                                                     <QrCode
                                                                         size={
-                                                                            14
+                                                                            13
                                                                         }
-                                                                    />{" "}
+                                                                    />
                                                                     QR
                                                                 </Button>
                                                             </div>
@@ -271,10 +275,12 @@ export default function DashboardPage() {
                                         </table>
 
                                         {!recentExams.length && (
-                                            <p className="py-4 text-center text-sm text-slate-500">
-                                                Data pemeriksaan tidak
-                                                ditemukan.
-                                            </p>
+                                            <div className="flex flex-col items-center gap-2 py-12 text-center">
+                                                <ClipboardList size={36} className="text-slate-200" />
+                                                <p className="text-sm text-slate-400">
+                                                    Data pemeriksaan tidak ditemukan.
+                                                </p>
+                                            </div>
                                         )}
                                     </div>
                                 )}
@@ -297,7 +303,7 @@ export default function DashboardPage() {
                         </DialogDescription>
                     </DialogHeader>
                     <div className="flex flex-col items-center justify-center gap-6 py-4">
-                        <div className="rounded-2xl border-4 border-violet-100 bg-white p-4 shadow-xl shadow-violet-100/50">
+                        <div className="rounded-2xl border-4 border-rose-100 bg-white p-4 shadow-xl shadow-brand/20">
                             <Suspense fallback={<div className="w-[200px] h-[200px] flex items-center justify-center bg-slate-50"><span className="text-slate-400 text-xs">Memuat QR...</span></div>}>
                                 <QRCodeDisplay url={qrUrl} />
                             </Suspense>
@@ -314,7 +320,7 @@ export default function DashboardPage() {
 
                         <div className="flex w-full gap-2">
                             <Button
-                                className="flex-1 gap-2 bg-violet-600 hover:bg-violet-700"
+                                className="flex-1 gap-2 bg-[#e86177] text-white hover:bg-[#d44d63]"
                                 onClick={() => {
                                     const canvas =
                                         document.querySelector("canvas");

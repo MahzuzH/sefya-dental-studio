@@ -63,15 +63,15 @@ export function Sidebar({ active }) {
     }, []);
 
     return (
-        <aside className="fixed left-0 top-0 hidden h-screen w-64 flex-col border-r border-violet-100 bg-white px-4 py-6 lg:flex z-30">
+        <aside className="fixed left-0 top-0 hidden h-screen w-64 flex-col border-r border-rose-100 bg-white px-4 pt-6 lg:flex z-30">
             {/* Brand */}
             <div className="mb-8 px-2">
-                <p className="text-xs font-semibold uppercase tracking-[0.25em] text-violet-600">
+                <p className="text-sm font-bold uppercase tracking-[0.2em] text-brand">
                     Sefya Dental Studio
                 </p>
-                <h1 className="mt-2 text-xl font-bold text-slate-900">
+                <p className="mt-1 text-sm font-medium text-slate-500">
                     Clinic Dashboard
-                </h1>
+                </p>
             </div>
 
             {/* Nav */}
@@ -80,10 +80,10 @@ export function Sidebar({ active }) {
                     <Button
                         key={item.key}
                         variant="ghost"
-                        className={`justify-start gap-2 ${
+                        className={`justify-start gap-2 pl-3 transition-all duration-150 ${
                             active === item.key
-                                ? "bg-violet-100 text-violet-700 hover:bg-violet-200 font-semibold"
-                                : "text-slate-600 hover:text-slate-900"
+                                ? "border-l-2 border-[#e86177] bg-rose-50 text-brand font-semibold"
+                                : "text-slate-600 hover:bg-rose-50/50 hover:text-slate-900"
                         }`}
                         onClick={() => navigate(item.path)}
                     >
@@ -95,7 +95,7 @@ export function Sidebar({ active }) {
 
             {/* Account + Logout */}
             <div className="mt-auto space-y-3">
-                <div className="rounded-xl border border-violet-100 bg-violet-50 p-4">
+                <div className="rounded-lg border border-rose-100 bg-rose-50 p-4">
                     <p className="text-xs uppercase tracking-wide text-slate-500">
                         Akun Aktif
                     </p>
@@ -109,7 +109,7 @@ export function Sidebar({ active }) {
 
                 <Button
                     variant="ghost"
-                    className="w-full justify-start gap-2 text-red-500 hover:bg-red-50 hover:text-red-600"
+                    className="mt-3 w-full justify-start gap-2 text-red-500 hover:bg-red-50 hover:text-red-600"
                     onClick={handleLogout}
                 >
                     <LogOut size={16} />

@@ -154,7 +154,7 @@ export function useDashboardPageLogic() {
         return [
             { name: "Completed", value: completed, color: "#22c55e" },
             { name: "Pending", value: pending, color: "#f59e0b" },
-            { name: "Lainnya", value: other, color: "#8b5cf6" },
+            { name: "Lainnya", value: other, color: "#ff91a4" },
         ].filter((item) => item.value > 0);
     }, [normalizedExams]);
 

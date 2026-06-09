@@ -53,26 +53,25 @@ export default function PemeriksaanPage() {
         totalPages > 0 ? Math.round((page / totalPages) * 100) : 0;
 
     return (
-        <div className="h-screen w-screen overflow-hidden bg-gradient-to-br from-violet-50 via-white to-fuchsia-50 text-slate-900">
+        <div className="h-screen w-screen overflow-hidden bg-gradient-to-br from-[#fff5f7] via-white to-rose-50 text-slate-900 font-poppins">
             <Sidebar active="pemeriksaan" />
 
             <div className="h-full lg:pl-64">
                 <main className="h-full overflow-hidden p-3 sm:p-4 space-y-4 flex flex-col">
                     {/* Header */}
-                    <header className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-violet-100 bg-white p-4 shadow-sm shrink-0">
+                    <header className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-rose-100 bg-white px-4 py-3 shadow-sm shrink-0">
                         <div>
                             <h2 className="text-xl font-bold text-slate-900">
                                 Data Pemeriksaan
                             </h2>
-                            <p className="text-sm text-slate-500">
-                                Kelola dan lihat semua riwayat pemeriksaan
-                                pasien.
+                            <p className="text-sm text-slate-600">
+                                Kelola dan lihat semua riwayat pemeriksaan pasien.
                             </p>
                         </div>
 
                         <div className="flex items-center gap-2">
                             <Button
-                                className="gap-2 bg-violet-500 text-white hover:bg-violet-600"
+                                className="gap-2 bg-[#e86177] text-white hover:bg-[#d44d63]"
                                 onClick={() => navigate("/pemeriksaan/baru")}
                             >
                                 <Plus size={16} /> Pemeriksaan Baru
@@ -88,11 +87,11 @@ export default function PemeriksaanPage() {
                     )}
 
                     {/* Table Card */}
-                    <Card className="border-violet-100 bg-white shadow-sm overflow-hidden flex flex-col flex-1 min-h-0">
+                    <Card className="border-rose-100 bg-white shadow-sm overflow-hidden flex flex-col flex-1 min-h-0">
                         <CardContent className="p-0 flex flex-col h-full">
                             {/* Toolbar */}
-                            <div className="p-4 border-b border-violet-50 flex flex-wrap items-center justify-between gap-4 shrink-0">
-                                <div className="flex items-center gap-2 rounded-xl border border-violet-100 bg-violet-50 px-3 py-2 w-full md:w-96">
+                            <div className="p-4 border-b border-rose-50 flex flex-wrap items-center justify-between gap-4 shrink-0">
+                                <div className="flex items-center gap-2.5 rounded-lg border border-rose-100 bg-rose-50 px-3 py-2 w-full md:w-96">
                                     <Search
                                         size={16}
                                         className="text-slate-500 shrink-0"
@@ -128,28 +127,25 @@ export default function PemeriksaanPage() {
                             <div className="flex-1 overflow-auto">
                                 <table className="w-full text-sm">
                                     <thead>
-                                        <tr
-                                            className="border-b border-violet-100 bg-white text-left text-slate-500"
-                                            style={{ top: 0 }}
-                                        >
-                                            <th className="px-6 py-3 font-semibold sticky top-0 bg-white z-10">
+                                        <tr className="bg-slate-50/80 text-xs font-semibold uppercase tracking-wider text-slate-500">
+                                            <th className="px-4 py-3 sticky top-0 bg-slate-50/80 z-10 shadow-[inset_0_-1px_0_0_rgba(0,0,0,0.05)]">
                                                 Nama Pasien
                                             </th>
-                                            <th className="px-6 py-3 font-semibold sticky top-0 bg-white z-10">
+                                            <th className="px-4 py-3 sticky top-0 bg-slate-50/80 z-10 shadow-[inset_0_-1px_0_0_rgba(0,0,0,0.05)]">
                                                 Instansi
                                             </th>
-                                            <th className="px-6 py-3 font-semibold sticky top-0 bg-white z-10">
+                                            <th className="px-4 py-3 sticky top-0 bg-slate-50/80 z-10 shadow-[inset_0_-1px_0_0_rgba(0,0,0,0.05)]">
                                                 Tanggal
                                             </th>
-                                            <th className="px-6 py-3 font-semibold sticky top-0 bg-white z-10">
+                                            <th className="px-4 py-3 sticky top-0 bg-slate-50/80 z-10 shadow-[inset_0_-1px_0_0_rgba(0,0,0,0.05)]">
                                                 Status
                                             </th>
-                                            <th className="px-6 py-3 font-semibold text-center sticky top-0 bg-white z-10">
+                                            <th className="px-4 py-3 text-center sticky top-0 bg-slate-50/80 z-10 shadow-[inset_0_-1px_0_0_rgba(0,0,0,0.05)]">
                                                 Aksi
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody className="divide-y divide-violet-50">
+                                    <tbody className="divide-y divide-slate-50">
                                         {loading ? (
                                             <tr>
                                                 <td
@@ -157,7 +153,7 @@ export default function PemeriksaanPage() {
                                                     className="py-14 text-center text-slate-400"
                                                 >
                                                     <div className="flex flex-col items-center gap-2">
-                                                        <div className="h-6 w-6 animate-spin rounded-full border-2 border-violet-400 border-t-transparent" />
+                                                        <div className="h-6 w-6 animate-spin rounded-full border-2 border-[#e86177] border-t-transparent" />
                                                         Memuat data...
                                                     </div>
                                                 </td>
@@ -166,20 +162,20 @@ export default function PemeriksaanPage() {
                                             allExams.map((exam) => (
                                                 <tr
                                                     key={exam.id}
-                                                    className="hover:bg-violet-50/30 transition-colors"
+                                                    className="hover:bg-rose-50/40 transition-colors"
                                                 >
-                                                    <td className="px-6 py-3 font-medium text-slate-900">
+                                                    <td className="px-4 py-3 font-medium text-slate-900">
                                                         {exam.patientName}
                                                     </td>
-                                                    <td className="px-6 py-3 text-slate-600">
+                                                    <td className="px-4 py-3 text-slate-700">
                                                         {exam.institution}
                                                     </td>
-                                                    <td className="px-6 py-3 text-slate-600">
+                                                    <td className="px-4 py-3 text-slate-700">
                                                         {formatDate(
                                                             exam.scanDate,
                                                         )}
                                                     </td>
-                                                    <td className="px-6 py-3">
+                                                    <td className="px-4 py-3">
                                                         <span
                                                             className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${
                                                                 exam.status ===
@@ -191,7 +187,7 @@ export default function PemeriksaanPage() {
                                                             {exam.status}
                                                         </span>
                                                     </td>
-                                                    <td className="px-6 py-3">
+                                                    <td className="px-4 py-3">
                                                         <div className="flex items-center justify-center gap-1">
                                                             {/* View Report */}
                                                             <Button
@@ -218,7 +214,7 @@ export default function PemeriksaanPage() {
                                                             <Button
                                                                 size="sm"
                                                                 variant="ghost"
-                                                                className="h-8 w-8 p-0 text-violet-400 hover:text-violet-700 hover:bg-violet-50"
+                                                                className="h-8 w-8 p-0 text-brand hover:text-[#fb7185] hover:bg-rose-50"
                                                                 title="Edit pemeriksaan"
                                                                 onClick={() =>
                                                                     handleEdit(
@@ -279,7 +275,7 @@ export default function PemeriksaanPage() {
                             </div>
 
                             {/* Footer */}
-                            <div className="p-4 border-t border-violet-50 bg-slate-50/30 flex items-center justify-between text-xs text-slate-500 shrink-0">
+                            <div className="p-4 border-t border-slate-100 bg-slate-50/50 flex items-center justify-between text-xs text-slate-500 shrink-0">
                                 <span></span>
                                 <div className="flex gap-1 items-center">
                                     <Pagination
@@ -306,7 +302,7 @@ export default function PemeriksaanPage() {
                     </DialogHeader>
 
                     <div className="flex flex-col items-center justify-center gap-6 py-4">
-                        <div className="rounded-2xl border-4 border-violet-100 bg-white p-4 shadow-xl shadow-violet-100/50">
+                        <div className="rounded-2xl border-4 border-rose-100 bg-white p-4 shadow-xl shadow-brand/20">
                             {qrUrl && (
                                 <Suspense fallback={<div className="w-[200px] h-[200px] flex items-center justify-center bg-slate-50"><span className="text-slate-400 text-xs">Memuat QR...</span></div>}>
                                     <QRCodeDisplay url={qrUrl} />
@@ -335,7 +331,7 @@ export default function PemeriksaanPage() {
                                 Tutup
                             </Button>
                             <Button
-                                className="flex-1 gap-2 bg-violet-600 hover:bg-violet-700"
+                                className="flex-1 gap-2 bg-[#e86177] text-white hover:bg-[#d44d63]"
                                 onClick={() => {
                                     const canvas =
                                         document.querySelector("canvas");

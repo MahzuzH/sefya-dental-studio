@@ -158,7 +158,7 @@ export default function TambahPemeriksaanPage() {
                         map[e.tooth_number] = {
                             condition_id: e.condition_id,
                             condition_name: e.condition_name,
-                            color: e.color_code || "#8b5cf6",
+                            color: e.color_code || "#ff91a4",
                             tooth_surface: e.tooth_surface || "",
                             notes: e.notes || "",
                         };
@@ -262,7 +262,7 @@ export default function TambahPemeriksaanPage() {
             [selectedTooth]: {
                 condition_id: toothForm.condition_id,
                 condition_name: cond?.name || "",
-                color: cond?.color_code || "#8b5cf6",
+                color: cond?.color_code || "#ff91a4",
                 tooth_surface: toothForm.tooth_surface,
                 notes: toothForm.notes,
             },
@@ -320,10 +320,10 @@ export default function TambahPemeriksaanPage() {
                         ? `Gigi ${tooth}: ${entry.condition_name}`
                         : `Gigi ${tooth}`
                 }
-                className={`relative flex w-full aspect-[3/4] max-w-[64px] flex-col items-center justify-center transition-all focus:outline-none focus:ring-2 focus:ring-violet-400 rounded-md group ${
+                className={`relative flex w-full aspect-[3/4] max-w-[64px] flex-col items-center justify-center transition-all focus:outline-none focus:ring-2 focus:ring-[#ff91a4] rounded-md group ${
                     entry
                         ? "opacity-100 scale-105"
-                        : "hover:text-violet-500 hover:scale-110 opacity-95 hover:opacity-100"
+                        : "hover:text-brand hover:scale-110 opacity-95 hover:opacity-100"
                 }`}
             >
                 <svg
@@ -477,9 +477,9 @@ export default function TambahPemeriksaanPage() {
     /* ─── loading state ─── */
     if (loading) {
         return (
-            <div className="flex h-screen w-screen items-center justify-center bg-gradient-to-br from-violet-50 via-white to-fuchsia-50">
+            <div className="flex h-screen w-screen items-center justify-center bg-gradient-to-br from-[#fff5f7] via-white to-rose-50 font-poppins">
                 <div className="flex flex-col items-center gap-3">
-                    <div className="h-9 w-9 animate-spin rounded-full border-4 border-violet-600 border-t-transparent" />
+                    <div className="h-9 w-9 animate-spin rounded-full border-4 border-brand border-t-transparent" />
                     <p className="text-sm text-slate-500">
                         Memuat data pemeriksaan...
                     </p>
@@ -490,18 +490,18 @@ export default function TambahPemeriksaanPage() {
 
     /* ─── render ─── */
     return (
-        <div className="min-h-screen bg-gradient-to-br from-violet-50 via-white to-fuchsia-50 text-slate-900">
+        <div className="min-h-screen bg-gradient-to-br from-[#fff5f7] via-white to-rose-50 text-slate-900 font-poppins">
             <Sidebar active="pemeriksaan" />
 
             <div className="lg:pl-64">
                 <main className="min-h-screen p-3 sm:p-4 space-y-4 pb-10">
                     {/* ── Header ── */}
-                    <header className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-violet-100 bg-white p-4 shadow-sm">
+                    <header className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-rose-100 bg-white px-4 py-3 shadow-sm">
                         <div className="flex items-center gap-3">
                             <Button
                                 variant="ghost"
                                 size="icon"
-                                className="rounded-xl hover:bg-violet-50"
+                                className="rounded-xl hover:bg-rose-50"
                                 onClick={() => navigate("/pemeriksaan")}
                             >
                                 <ChevronLeft size={20} />
@@ -512,7 +512,7 @@ export default function TambahPemeriksaanPage() {
                                         ? "Edit Pemeriksaan"
                                         : "Tambah Pemeriksaan"}
                                 </h2>
-                                <p className="text-sm text-slate-500">
+                                <p className="text-sm text-slate-500 leading-relaxed">
                                     {isEdit
                                         ? "Ubah data pemeriksaan dan odontogram."
                                         : "Buat catatan pemeriksaan gigi baru."}
@@ -529,7 +529,7 @@ export default function TambahPemeriksaanPage() {
                                 Batal
                             </Button>
                             <Button
-                                className="gap-2 text-white bg-violet-500 hover:bg-violet-600"
+                                className="gap-2 bg-[#e86177] text-white hover:bg-[#d44d63]"
                                 onClick={handleSubmit}
                                 disabled={saving}
                             >
@@ -555,13 +555,13 @@ export default function TambahPemeriksaanPage() {
                         {/* ── LEFT COLUMN ── */}
                         <div className="lg:col-span-1 space-y-4">
                             {/* Patient Select */}
-                            <Card className="border-violet-100 bg-white shadow-sm overflow-visible">
+                            <Card className="border-rose-100 bg-white shadow-sm overflow-visible transition-all duration-200">
                                 <CardContent className="p-5 space-y-3">
                                     <div className="flex items-center gap-2">
-                                        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-100">
+                                        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-rose-100">
                                             <User
                                                 size={16}
-                                                className="text-violet-600"
+                                                className="text-brand"
                                             />
                                         </div>
                                         <h3 className="font-semibold text-slate-900">
@@ -574,7 +574,7 @@ export default function TambahPemeriksaanPage() {
                                         className="relative"
                                         ref={patientSearchRef}
                                     >
-                                        <div className="flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 focus-within:border-violet-400 focus-within:bg-white transition-colors">
+                                        <div className="flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 focus-within:border-[#ff91a4] focus-within:bg-white transition-colors">
                                             <Search
                                                 size={14}
                                                 className="text-slate-400 shrink-0"
@@ -614,10 +614,10 @@ export default function TambahPemeriksaanPage() {
                                                                 <button
                                                                     key={p.id}
                                                                     type="button"
-                                                                    className={`w-full px-3 py-2.5 text-left text-sm hover:bg-violet-50 transition-colors ${
+                                                                    className={`w-full px-3 py-2.5 text-left text-sm hover:bg-rose-50 transition-colors ${
                                                                         form.patient_id ===
                                                                         p.id
-                                                                            ? "bg-violet-50 border-l-2 border-violet-500"
+                                                                            ? "bg-rose-50 border-l-2 border-brand"
                                                                             : ""
                                                                     }`}
                                                                     onClick={() =>
@@ -648,8 +648,8 @@ export default function TambahPemeriksaanPage() {
 
                                     {/* Selected patient card */}
                                     {selectedPatient && (
-                                        <div className="rounded-xl border border-violet-200 bg-violet-50 p-3">
-                                            <p className="text-xs font-semibold uppercase tracking-wider text-violet-400 mb-1">
+                                        <div className="rounded-xl border border-rose-200 bg-rose-50 p-3">
+                                            <p className="text-xs font-semibold uppercase tracking-wider text-brand mb-1">
                                                 Pasien Terpilih
                                             </p>
                                             <p className="font-semibold text-slate-900">
@@ -665,13 +665,13 @@ export default function TambahPemeriksaanPage() {
                             </Card>
 
                             {/* Checkup Details */}
-                            <Card className="border-violet-100 bg-white shadow-sm">
+                            <Card className="border-rose-100 bg-white shadow-sm transition-all duration-200">
                                 <CardContent className="p-5 space-y-4">
                                     <div className="flex items-center gap-2">
-                                        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-100">
+                                        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-rose-100">
                                             <CalendarDays
                                                 size={16}
-                                                className="text-violet-600"
+                                                className="text-brand"
                                             />
                                         </div>
                                         <h3 className="font-semibold text-slate-900">
@@ -755,13 +755,13 @@ export default function TambahPemeriksaanPage() {
                             </Card>
 
                             {/* Foto Gigi */}
-                            <Card className="border-violet-100 bg-white shadow-sm">
+                            <Card className="border-rose-100 bg-white shadow-sm transition-all duration-200">
                                 <CardContent className="p-5 space-y-4">
                                     <div className="flex items-center gap-2">
-                                        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-100">
+                                        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-rose-100">
                                             <Camera
                                                 size={16}
-                                                className="text-violet-600"
+                                                className="text-brand"
                                             />
                                         </div>
                                         <h3 className="font-semibold text-slate-900">
@@ -820,7 +820,7 @@ export default function TambahPemeriksaanPage() {
                                                                     )}
                                                                 </Label>
                                                                 {urls[0] ? (
-                                                                    <div className="relative group rounded-xl overflow-hidden border-2 border-violet-200 bg-slate-50 aspect-square">
+                                                                    <div className="relative group rounded-xl overflow-hidden border-2 border-rose-200 bg-slate-50 aspect-square">
                                                                         <img
                                                                             src={
                                                                                 urls[0]
@@ -864,8 +864,8 @@ export default function TambahPemeriksaanPage() {
                                                                     <label
                                                                         className={`flex flex-col items-center justify-center gap-1 sm:gap-2 rounded-xl border-2 border-dashed aspect-square ${
                                                                             uploading
-                                                                                ? "border-violet-300 bg-violet-50"
-                                                                                : "border-slate-200 bg-slate-50 hover:border-violet-400 hover:bg-violet-50"
+                                                                                ? "border-rose-300 bg-rose-50"
+                                                                                : "border-slate-200 bg-slate-50 hover:border-[#e86177] hover:bg-rose-50"
                                                                         } cursor-pointer transition-colors px-1`}
                                                                         onDragOver={(
                                                                             e,
@@ -888,7 +888,7 @@ export default function TambahPemeriksaanPage() {
                                                                             }
                                                                         />
                                                                         {uploading ? (
-                                                                            <div className="h-6 w-6 animate-spin rounded-full border-2 border-violet-400 border-t-transparent" />
+                                                                            <div className="h-6 w-6 animate-spin rounded-full border-2 border-brand border-t-transparent" />
                                                                         ) : (
                                                                             <Upload
                                                                                 size={
@@ -915,21 +915,21 @@ export default function TambahPemeriksaanPage() {
                             </Card>
 
                             {/* Diagnosis Summary */}
-                            <Card className="border-violet-100 bg-white shadow-sm">
+                            <Card className="border-rose-100 bg-white shadow-sm transition-all duration-200">
                                 <CardContent className="p-5">
                                     <div className="flex items-center justify-between mb-3">
                                         <div className="flex items-center gap-2">
-                                            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-100">
+                                            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-rose-100">
                                                 <ClipboardList
                                                     size={16}
-                                                    className="text-violet-600"
+                                                    className="text-brand"
                                                 />
                                             </div>
                                             <h3 className="font-semibold text-slate-900">
                                                 Diagnosis
                                             </h3>
                                         </div>
-                                        <span className="rounded-full bg-violet-100 px-2.5 py-0.5 text-xs font-bold text-violet-700">
+                                        <span className="rounded-full bg-rose-100 px-2.5 py-0.5 text-xs font-bold text-brand">
                                             {Object.keys(entries).length} gigi
                                         </span>
                                     </div>
@@ -951,7 +951,7 @@ export default function TambahPemeriksaanPage() {
                                                 .map(([tooth, e]) => (
                                                     <div
                                                         key={tooth}
-                                                        className="flex items-center justify-between rounded-xl bg-slate-50 px-3 py-2 group hover:bg-violet-50 transition-colors"
+                                                        className="flex items-center justify-between rounded-xl bg-slate-50 px-3 py-2 group hover:bg-rose-50 transition-colors"
                                                     >
                                                         <div className="flex items-center gap-2.5 min-w-0">
                                                             <div
@@ -978,7 +978,7 @@ export default function TambahPemeriksaanPage() {
                                                         <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                                                             <button
                                                                 type="button"
-                                                                className="p-1 rounded-lg hover:bg-violet-100 text-violet-500"
+                                                                className="p-1 rounded-lg hover:bg-rose-100 text-brand"
                                                                 onClick={() =>
                                                                     openToothDialog(
                                                                         parseInt(
@@ -1030,14 +1030,14 @@ export default function TambahPemeriksaanPage() {
 
                         {/* ── RIGHT COLUMN: Odontogram ── */}
                         <div className="lg:col-span-1">
-                            <Card className="border-violet-100 bg-white shadow-sm">
+                            <Card className="border-rose-100 bg-white shadow-sm transition-all duration-200">
                                 <CardContent className="p-6">
                                     <div className="flex items-center justify-between mb-6">
                                         <div>
                                             <h3 className="text-lg font-bold text-slate-900">
                                                 Odontogram
                                             </h3>
-                                            <p className="text-xs text-slate-400 mt-0.5">
+                                            <p className="text-xs text-slate-400 mt-1 leading-relaxed">
                                                 Klik pada nomor gigi untuk
                                                 menambah atau mengubah diagnosis
                                             </p>
@@ -1069,7 +1069,7 @@ export default function TambahPemeriksaanPage() {
                                     {/* Jaw divider */}
                                     <div className="my-3 flex items-center gap-2 sm:gap-3 px-2 sm:px-6">
                                         <div className="flex-1 border-t-2 border-dashed border-slate-200" />
-                                        <div className="rounded-full bg-violet-50 px-3 py-1 text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-violet-400 border border-violet-100 whitespace-nowrap">
+                                        <div className="rounded-full bg-rose-50 px-3 py-1 text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-brand border border-rose-100 whitespace-nowrap">
                                             Garis Oklusal
                                         </div>
                                         <div className="flex-1 border-t-2 border-dashed border-slate-200" />
@@ -1106,7 +1106,7 @@ export default function TambahPemeriksaanPage() {
                                                         style={{
                                                             backgroundColor:
                                                                 c.color_code ||
-                                                                "#8b5cf6",
+                                                                "#ff91a4",
                                                         }}
                                                     >
                                                         {c.name}
@@ -1132,7 +1132,7 @@ export default function TambahPemeriksaanPage() {
                                 style={{
                                     backgroundColor:
                                         entries[selectedTooth]?.color ||
-                                        "#8b5cf6",
+                                        "#ff91a4",
                                 }}
                             >
                                 {selectedTooth}
@@ -1242,7 +1242,7 @@ export default function TambahPemeriksaanPage() {
                                 Batal
                             </Button>
                             <Button
-                                className="flex-1 bg-violet-600 hover:bg-violet-700"
+                                className="flex-1 bg-[#e86177] text-white hover:bg-[#d44d63]"
                                 onClick={saveToothEntry}
                                 disabled={!toothForm.condition_id}
                             >

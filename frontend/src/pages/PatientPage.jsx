@@ -44,13 +44,13 @@ export default function PatientPage() {
 
     /* ─── render ─── */
     return (
-        <div className="h-screen w-screen overflow-hidden bg-gradient-to-br from-violet-50 via-white to-fuchsia-50 text-slate-900">
+        <div className="h-screen w-screen overflow-hidden bg-gradient-to-br from-[#fff5f7] via-white to-rose-50 text-slate-900 font-poppins">
             <Sidebar active="pasien" />
 
             <div className="h-full lg:pl-64">
                 <main className="h-full overflow-auto p-3 sm:p-4 space-y-4">
                     {/* Header */}
-                    <header className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-violet-100 bg-white p-4 shadow-sm">
+                    <header className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-rose-100 bg-white px-4 py-3 shadow-sm">
                         <div>
                             <h2 className="text-xl font-bold text-slate-900">
                                 Data Pasien
@@ -60,7 +60,7 @@ export default function PatientPage() {
                             </p>
                         </div>
                         <Button
-                            className="gap-2 text-white bg-violet-500 hover:bg-violet-600"
+                            className="gap-2 bg-[#e86177] text-white hover:bg-[#d44d63]"
                             onClick={() => navigate("/pasien/baru")}
                         >
                             <Plus size={16} /> Tambah Pasien
@@ -75,13 +75,13 @@ export default function PatientPage() {
 
                     {/* Table card */}
                     <Card
-                        className="border-violet-100 bg-white shadow-sm overflow-hidden flex flex-col"
+                        className="border-rose-100 bg-white shadow-sm overflow-hidden flex flex-col"
                         style={{ height: "calc(100vh - 164px)" }}
                     >
                         <CardContent className="p-0 flex flex-col h-full">
                             {/* Search bar */}
-                            <div className="p-4 border-b border-violet-50 flex flex-wrap items-center justify-between gap-3">
-                                <div className="flex items-center gap-2 rounded-xl border border-violet-100 bg-violet-50 px-3 py-2 w-full md:w-96">
+                            <div className="p-4 border-b border-rose-50 flex flex-wrap items-center justify-between gap-3">
+                                <div className="flex items-center gap-2 rounded-lg border border-rose-100 bg-rose-50 px-3 py-2 w-full md:w-96">
                                     <Search
                                         size={15}
                                         className="text-slate-400 shrink-0"
@@ -114,28 +114,28 @@ export default function PatientPage() {
                             <div className="flex-1 overflow-auto">
                                 <table className="w-full text-sm">
                                     <thead>
-                                        <tr className="border-b border-violet-100 bg-slate-50/50 text-left text-slate-500">
-                                            <th className="px-6 py-3 font-semibold">
+                                        <tr className="border-b border-rose-100 bg-slate-50/80 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
+                                            <th className="px-4 py-3">
                                                 Nama
                                             </th>
-                                            <th className="px-6 py-3 font-semibold">
+                                            <th className="px-4 py-3">
                                                 NIS
                                             </th>
-                                            <th className="px-6 py-3 font-semibold">
+                                            <th className="px-4 py-3">
                                                 Instansi
                                             </th>
-                                            <th className="px-6 py-3 font-semibold">
+                                            <th className="px-4 py-3">
                                                 Usia
                                             </th>
-                                            <th className="px-6 py-3 font-semibold">
+                                            <th className="px-4 py-3">
                                                 Kelamin
                                             </th>
-                                            <th className="px-6 py-3 font-semibold text-center">
+                                            <th className="px-4 py-3 text-center">
                                                 Aksi
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody className="divide-y divide-violet-50">
+                                    <tbody className="divide-y divide-slate-50">
                                         {loading ? (
                                             <tr>
                                                 <td
@@ -149,38 +149,42 @@ export default function PatientPage() {
                                             <tr>
                                                 <td
                                                     colSpan={6}
-                                                    className="py-14 text-center text-slate-400 italic"
+                                                    className="py-16 text-center"
                                                 >
-                                                    <Users
-                                                        size={36}
-                                                        className="mx-auto mb-2 text-slate-200"
-                                                    />
-                                                    Tidak ada data pasien
-                                                    ditemukan.
+                                                    <div className="mx-auto flex flex-col items-center gap-2">
+                                                        <Users
+                                                            size={40}
+                                                            className="text-rose-200"
+                                                        />
+                                                        <span className="text-sm font-medium text-slate-400">
+                                                            Tidak ada data pasien
+                                                            ditemukan
+                                                        </span>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         ) : (
                                             visiblePatients.map((p) => (
                                                 <tr
                                                     key={p.id}
-                                                    className="hover:bg-violet-50/30 transition-colors"
+                                                    className="hover:bg-rose-50/40 transition-colors"
                                                 >
-                                                    <td className="px-6 py-3 font-medium text-slate-900">
+                                                    <td className="px-4 py-3 font-medium text-slate-800">
                                                         {p.full_name}
                                                     </td>
-                                                    <td className="px-6 py-3 text-slate-500 font-mono text-xs">
+                                                    <td className="px-4 py-3 text-slate-400 font-mono text-xs">
                                                         {p.student_id || "-"}
                                                     </td>
-                                                    <td className="px-6 py-3 text-slate-600">
+                                                    <td className="px-4 py-3 text-slate-600">
                                                         {p.institution_name ||
                                                             "-"}
                                                     </td>
-                                                    <td className="px-6 py-3 text-slate-600">
+                                                    <td className="px-4 py-3 text-slate-600">
                                                         {p.age != null
                                                             ? `${p.age} th`
                                                             : "-"}
                                                     </td>
-                                                    <td className="px-6 py-3">
+                                                    <td className="px-4 py-3">
                                                         <span
                                                             className={`inline-flex rounded-full px-2 py-0.5 text-[11px] font-medium ${genderBadge(p.gender)}`}
                                                         >
@@ -189,7 +193,7 @@ export default function PatientPage() {
                                                             )}
                                                         </span>
                                                     </td>
-                                                    <td className="px-6 py-3">
+                                                    <td className="px-4 py-3">
                                                         <div className="flex items-center justify-center gap-1">
                                                             <Button
                                                                 size="sm"
@@ -209,7 +213,7 @@ export default function PatientPage() {
                                                             <Button
                                                                 size="sm"
                                                                 variant="ghost"
-                                                                className="h-8 w-8 p-0 text-violet-400 hover:text-violet-700 hover:bg-violet-50"
+                                                                className="h-8 w-8 p-0 text-brand hover:text-[#fb7185] hover:bg-rose-50"
                                                                 title="Edit pasien"
                                                                 onClick={() =>
                                                                     navigate(
@@ -231,7 +235,7 @@ export default function PatientPage() {
                             </div>
 
                             {/* Footer */}
-                            <div className="p-4 border-t border-violet-50 bg-slate-50/30 text-xs text-slate-500 flex items-center justify-between">
+                            <div className="p-4 border-t border-slate-100 bg-slate-50/50 text-xs text-slate-500 flex items-center justify-between">
                                 <span></span>
                                 <div className="flex items-center gap-3">
                                     <Pagination
@@ -341,7 +345,7 @@ export default function PatientPage() {
                                     Tutup
                                 </Button>
                                 <Button
-                                    className="flex-1 gap-2 text-white bg-violet-500 hover:bg-violet-600"
+                                    className="flex-1 gap-2 bg-[#e86177] text-white hover:bg-[#d44d63]"
                                     onClick={() => {
                                         const patientId = viewPatient.id;
                                         setViewPatient(null);

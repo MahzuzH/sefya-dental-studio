@@ -18,13 +18,13 @@ export default function DashboardCharts({ visitorsLast7Days, statusData, institu
     return (
         <>
             <section className="grid gap-3 xl:grid-cols-3">
-                <Card className="border-violet-100 bg-white xl:col-span-2">
+                <Card className="border-rose-100 bg-white xl:col-span-2 transition-all duration-200 hover:shadow-md">
                     <CardContent className="p-3">
                         <div className="mb-2 flex items-center justify-between">
                             <h3 className="text-base font-semibold">
                                 Visualisasi Pengunjung (7 Hari)
                             </h3>
-                            <span className="text-xs text-slate-500">
+                            <span className="rounded-full bg-rose-50 px-2.5 py-0.5 text-xs font-medium text-rose-600">
                                 Berdasarkan tanggal scan
                             </span>
                         </div>
@@ -41,7 +41,7 @@ export default function DashboardCharts({ visitorsLast7Days, statusData, institu
                                     <Line
                                         type="monotone"
                                         dataKey="total"
-                                        stroke="#7c3aed"
+                                        stroke="#ff91a4"
                                         strokeWidth={3}
                                         dot={{ r: 4 }}
                                     />
@@ -51,7 +51,7 @@ export default function DashboardCharts({ visitorsLast7Days, statusData, institu
                     </CardContent>
                 </Card>
 
-                <Card className="border-violet-100 bg-white">
+                <Card className="border-rose-100 bg-white transition-all duration-200 hover:shadow-md">
                     <CardContent className="p-3">
                         <h3 className="mb-2 text-base font-semibold">
                             Status Pemeriksaan
@@ -79,7 +79,7 @@ export default function DashboardCharts({ visitorsLast7Days, statusData, institu
                             </ResponsiveContainer>
                         </div>
 
-                        <div className="space-y-1.5">
+                        <div className="space-y-2">
                             {statusData.map((item) => (
                                 <div
                                     key={item.name}
@@ -92,7 +92,7 @@ export default function DashboardCharts({ visitorsLast7Days, statusData, institu
                                                 backgroundColor: item.color,
                                             }}
                                         />
-                                        <span>{item.name}</span>
+                                        <span className="font-medium">{item.name}</span>
                                     </div>
                                     <span className="font-semibold">
                                         {item.value}
@@ -105,7 +105,7 @@ export default function DashboardCharts({ visitorsLast7Days, statusData, institu
             </section>
 
             <section className="mt-3">
-                <Card className="border-violet-100 bg-white">
+                <Card className="border-rose-100 bg-white transition-all duration-200 hover:shadow-md">
                     <CardContent className="p-3">
                         <h3 className="mb-2 text-base font-semibold">
                             Top Instansi
@@ -132,7 +132,7 @@ export default function DashboardCharts({ visitorsLast7Days, statusData, institu
                                     <Tooltip />
                                     <Bar
                                         dataKey="total"
-                                        fill="#8b5cf6"
+                                        fill="#ff91a4"
                                         radius={[0, 8, 8, 0]}
                                     />
                                 </BarChart>

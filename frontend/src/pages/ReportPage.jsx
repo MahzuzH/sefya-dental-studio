@@ -41,12 +41,12 @@ export default function ReportPage() {
     } = useReportPageLogic();
 
     return (
-        <div className="h-screen w-screen overflow-hidden bg-gradient-to-br from-violet-50 via-white to-fuchsia-50 text-slate-900">
+        <div className="h-screen w-screen overflow-hidden bg-gradient-to-br from-[#fff5f7] via-white to-rose-50 text-slate-900 font-poppins">
             <div className="h-full w-full">
                 <Sidebar active="report" />
 
                 <main className="h-full space-y-4 overflow-auto p-3 sm:p-4 lg:pl-[17rem]">
-                    <header className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-violet-100 bg-white p-4 shadow-sm">
+                    <header className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-rose-100 bg-white px-4 py-3 shadow-sm">
                         <div>
                             <h2 className="text-xl font-bold text-slate-900">
                                 Statistik & Laporan
@@ -61,7 +61,7 @@ export default function ReportPage() {
                                 <Calendar size={16} /> Filter Rentang Waktu
                             </Button>
                             <Button
-                                className="gap-2 bg-violet-600 hover:bg-violet-700"
+                                className="gap-2 bg-[#e86177] text-white hover:bg-[#d44d63]"
                                 onClick={handleDownloadReport}
                             >
                                 <Download size={16} /> Download CSV
@@ -79,7 +79,7 @@ export default function ReportPage() {
 
                     {/* Summary Cards */}
                     <section className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                        <Card className="border-violet-100 bg-white shadow-sm overflow-hidden">
+                        <Card className="border-rose-100 bg-white shadow-sm overflow-hidden transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
                             <CardContent className="p-5">
                                 <div className="flex items-center justify-between mb-2">
                                     <p className="text-sm font-medium text-slate-500">
@@ -87,7 +87,7 @@ export default function ReportPage() {
                                     </p>
                                     <TrendingUp
                                         size={16}
-                                        className="text-violet-500"
+                                        className="text-brand"
                                     />
                                 </div>
                                 <h3 className="text-2xl font-bold">
@@ -99,7 +99,7 @@ export default function ReportPage() {
                                 </p>
                             </CardContent>
                         </Card>
-                        <Card className="border-violet-100 bg-white shadow-sm overflow-hidden">
+                        <Card className="border-rose-100 bg-white shadow-sm overflow-hidden transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
                             <CardContent className="p-5">
                                 <div className="flex items-center justify-between mb-2">
                                     <p className="text-sm font-medium text-slate-500">
@@ -118,7 +118,7 @@ export default function ReportPage() {
                                 </p>
                             </CardContent>
                         </Card>
-                        <Card className="border-violet-100 bg-white shadow-sm overflow-hidden">
+                        <Card className="border-rose-100 bg-white shadow-sm overflow-hidden transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
                             <CardContent className="p-5">
                                 <div className="flex items-center justify-between mb-2">
                                     <p className="text-sm font-medium text-slate-500">
@@ -137,7 +137,7 @@ export default function ReportPage() {
                                 </p>
                             </CardContent>
                         </Card>
-                        <Card className="border-violet-100 bg-white shadow-sm overflow-hidden">
+                        <Card className="border-rose-100 bg-white shadow-sm overflow-hidden transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
                             <CardContent className="p-5">
                                 <div className="flex items-center justify-between mb-2">
                                     <p className="text-sm font-medium text-slate-500">
@@ -158,7 +158,7 @@ export default function ReportPage() {
 
                     <section className="grid gap-4 xl:grid-cols-2">
                         {/* Periodic Traffic */}
-                        <Card className="border-violet-100 bg-white shadow-sm">
+                        <Card className="border-rose-100 bg-white shadow-sm transition-all duration-200 hover:shadow-md">
                             <CardContent className="p-6">
                                 <div className="flex items-center justify-between mb-6">
                                     <h3 className="text-base font-semibold">
@@ -207,11 +207,11 @@ export default function ReportPage() {
                                             <Line
                                                 type="monotone"
                                                 dataKey="total"
-                                                stroke="#7c3aed"
+                                                stroke="#ff91a4"
                                                 strokeWidth={3}
                                                 dot={{
                                                     r: 6,
-                                                    fill: "#7c3aed",
+                                                    fill: "#ff91a4",
                                                     strokeWidth: 2,
                                                     stroke: "#fff",
                                                 }}
@@ -228,7 +228,7 @@ export default function ReportPage() {
 
                         <div className="grid gap-4 md:grid-cols-1">
                             {/* Distribution */}
-                            <Card className="border-violet-100 bg-white shadow-sm">
+                            <Card className="border-rose-100 bg-white shadow-sm transition-all duration-200 hover:shadow-md">
                                 <CardContent className="p-6 flex items-center justify-between">
                                     <div className="w-1/2">
                                         <h3 className="text-base font-semibold mb-1">
@@ -290,7 +290,7 @@ export default function ReportPage() {
                             </Card>
 
                             {/* Top Institutions */}
-                            <Card className="border-violet-100 bg-white shadow-sm">
+                            <Card className="border-rose-100 bg-white shadow-sm transition-all duration-200 hover:shadow-md">
                                 <CardContent className="p-6">
                                     <h3 className="text-base font-semibold mb-6">
                                         Top Instansi Berkontribusi
@@ -333,7 +333,7 @@ export default function ReportPage() {
                                                 />
                                                 <Bar
                                                     dataKey="total"
-                                                    fill="#8b5cf6"
+                                                    fill="#ff91a4"
                                                     radius={[0, 4, 4, 0]}
                                                     barSize={20}
                                                 />
