@@ -36,16 +36,48 @@ const Home = () => {
         <Hero />
         <Suspense
           fallback={
-            <div className="h-96 flex flex-col items-center justify-center gap-6 w-full">
-              {/* Modern double-ring loader */}
-              <div className="relative flex items-center justify-center w-12 h-12">
-                <div className="absolute inset-0 rounded-full border-t-2 border-[#ff91a4] animate-spin"></div>
-                <div className="absolute inset-2 rounded-full border-r-2 border-[#ff91a4]/20 animate-[spin_1.5s_reverse_infinite]"></div>
+            <phantom-ui loading animation="shimmer">
+              <div className="w-full space-y-16 py-16 px-4">
+                <section className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
+                  <div className="h-64 bg-slate-100 rounded-2xl" />
+                  <div className="space-y-4">
+                    <div className="h-8 w-48 bg-slate-100 rounded" />
+                    <div className="h-4 w-full bg-slate-100 rounded" />
+                    <div className="h-4 w-3/4 bg-slate-100 rounded" />
+                    <div className="h-4 w-full bg-slate-100 rounded" />
+                    <div className="h-4 w-2/3 bg-slate-100 rounded" />
+                  </div>
+                </section>
+                <section className="max-w-6xl mx-auto text-center">
+                  <div className="h-8 w-32 bg-slate-100 rounded mx-auto mb-8" />
+                  <div className="grid md:grid-cols-4 gap-6">
+                    <div className="h-64 bg-slate-100 rounded-2xl" />
+                    <div className="h-64 bg-slate-100 rounded-2xl" />
+                    <div className="h-64 bg-slate-100 rounded-2xl" />
+                    <div className="h-64 bg-slate-100 rounded-2xl" />
+                  </div>
+                </section>
+                <section className="max-w-6xl mx-auto text-center">
+                  <div className="h-8 w-32 bg-slate-100 rounded mx-auto mb-8" />
+                  <div className="grid md:grid-cols-3 gap-4">
+                    <div className="h-40 bg-slate-100 rounded-xl" />
+                    <div className="h-40 bg-slate-100 rounded-xl" />
+                    <div className="h-40 bg-slate-100 rounded-xl" />
+                    <div className="h-40 bg-slate-100 rounded-xl" />
+                    <div className="h-40 bg-slate-100 rounded-xl" />
+                    <div className="h-40 bg-slate-100 rounded-xl" />
+                  </div>
+                </section>
+                <section className="max-w-6xl mx-auto text-center">
+                  <div className="h-8 w-32 bg-slate-100 rounded mx-auto mb-8" />
+                  <div className="max-w-lg mx-auto space-y-4">
+                    <div className="h-12 bg-slate-100 rounded-xl" />
+                    <div className="h-12 bg-slate-100 rounded-xl" />
+                    <div className="h-32 bg-slate-100 rounded-xl" />
+                  </div>
+                </section>
               </div>
-              <span className="text-xs font-semibold tracking-[0.2em] text-[#737373] uppercase">
-                Memuat Modul...
-              </span>
-            </div>
+            </phantom-ui>
           }
         >
           <div className="w-full flex flex-col">
@@ -59,7 +91,27 @@ const Home = () => {
 
       <Suspense
         fallback={
-          <div className="h-32 w-full bg-[#fafafa] border-t border-neutral-200"></div>
+          <phantom-ui loading animation="shimmer">
+            <footer className="h-32 w-full bg-[#fafafa] border-t border-neutral-200 px-4 py-8">
+              <div className="max-w-6xl mx-auto grid grid-cols-3 gap-8">
+                <div className="space-y-3">
+                  <div className="h-4 w-24 bg-slate-200 rounded" />
+                  <div className="h-3 w-full bg-slate-100 rounded" />
+                  <div className="h-3 w-3/4 bg-slate-100 rounded" />
+                </div>
+                <div className="space-y-3">
+                  <div className="h-4 w-24 bg-slate-200 rounded" />
+                  <div className="h-3 w-full bg-slate-100 rounded" />
+                  <div className="h-3 w-3/4 bg-slate-100 rounded" />
+                </div>
+                <div className="space-y-3">
+                  <div className="h-4 w-24 bg-slate-200 rounded" />
+                  <div className="h-3 w-full bg-slate-100 rounded" />
+                  <div className="h-3 w-3/4 bg-slate-100 rounded" />
+                </div>
+              </div>
+            </footer>
+          </phantom-ui>
         }
       >
         <Footer />

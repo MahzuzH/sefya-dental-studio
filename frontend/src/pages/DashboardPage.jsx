@@ -118,48 +118,50 @@ export default function DashboardPage() {
                         </div>
                     )}
 
-                    <section className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-                        <Card className="border-rose-100 bg-white transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
-                            <CardContent className="p-4">
-                                <p className="text-xs font-medium tracking-wide text-slate-500 uppercase">
-                                    Pemeriksaan Hari Ini
-                                </p>
-                                <p className="mt-2 text-3xl font-bold tracking-tight">
-                                    {stats.today}
-                                </p>
-                            </CardContent>
-                        </Card>
-                        <Card className="border-rose-100 bg-white transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
-                            <CardContent className="p-4">
-                                <p className="text-xs font-medium tracking-wide text-slate-500 uppercase">
-                                    Total Pemeriksaan
-                                </p>
-                                <p className="mt-2 text-3xl font-bold tracking-tight">
-                                    {stats.total}
-                                </p>
-                            </CardContent>
-                        </Card>
-                        <Card className="border-rose-100 bg-white transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
-                            <CardContent className="p-4">
-                                <p className="text-xs font-medium tracking-wide text-slate-500 uppercase">
-                                    Pending
-                                </p>
-                                <p className="mt-2 text-3xl font-bold tracking-tight text-amber-500">
-                                    {stats.pending}
-                                </p>
-                            </CardContent>
-                        </Card>
-                        <Card className="border-rose-100 bg-white transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
-                            <CardContent className="p-4">
-                                <p className="text-xs font-medium tracking-wide text-slate-500 uppercase">
-                                    Completed
-                                </p>
-                                <p className="mt-2 text-3xl font-bold tracking-tight text-emerald-500">
-                                    {stats.done}
-                                </p>
-                            </CardContent>
-                        </Card>
-                    </section>
+                    <phantom-ui loading={loading} animation="shimmer">
+                        <section className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+                            <Card className="border-rose-100 bg-white transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
+                                <CardContent className="p-4">
+                                    <p className="text-xs font-medium tracking-wide text-slate-500 uppercase">
+                                        Pemeriksaan Hari Ini
+                                    </p>
+                                    <p className="mt-2 text-3xl font-bold tracking-tight">
+                                        {stats.today}
+                                    </p>
+                                </CardContent>
+                            </Card>
+                            <Card className="border-rose-100 bg-white transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
+                                <CardContent className="p-4">
+                                    <p className="text-xs font-medium tracking-wide text-slate-500 uppercase">
+                                        Total Pemeriksaan
+                                    </p>
+                                    <p className="mt-2 text-3xl font-bold tracking-tight">
+                                        {stats.total}
+                                    </p>
+                                </CardContent>
+                            </Card>
+                            <Card className="border-rose-100 bg-white transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
+                                <CardContent className="p-4">
+                                    <p className="text-xs font-medium tracking-wide text-slate-500 uppercase">
+                                        Pending
+                                    </p>
+                                    <p className="mt-2 text-3xl font-bold tracking-tight text-amber-500">
+                                        {stats.pending}
+                                    </p>
+                                </CardContent>
+                            </Card>
+                            <Card className="border-rose-100 bg-white transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
+                                <CardContent className="p-4">
+                                    <p className="text-xs font-medium tracking-wide text-slate-500 uppercase">
+                                        Completed
+                                    </p>
+                                    <p className="mt-2 text-3xl font-bold tracking-tight text-emerald-500">
+                                        {stats.done}
+                                    </p>
+                                </CardContent>
+                            </Card>
+                        </section>
+                    </phantom-ui>
 
                     <Suspense fallback={<div className="h-40 flex items-center justify-center text-slate-400">Memuat Visualisasi...</div>}>
                         <DashboardCharts 
@@ -181,109 +183,122 @@ export default function DashboardPage() {
                                     </Button>
                                 </div>
 
-                                {loading ? (
-                                    <p className="text-sm text-slate-500">
-                                        Loading data...
-                                    </p>
-                                ) : (
-                                    <div className="overflow-x-auto rounded-lg border border-slate-100">
-                                        <table className="w-full min-w-[680px] text-xs sm:text-sm">
-                                            <thead>
-                                                <tr className="border-b border-slate-100 bg-slate-50/80 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
-                                                    <th className="px-4 py-3">
-                                                        Nama
-                                                    </th>
-                                                    <th className="px-4 py-3">
-                                                        Instansi
-                                                    </th>
-                                                    <th className="px-4 py-3">
-                                                        Tanggal
-                                                    </th>
-                                                    <th className="px-4 py-3">
-                                                        Status
-                                                    </th>
-                                                    <th className="px-4 py-3 text-center">
-                                                        Aksi
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody className="divide-y divide-slate-50">
-                                                {recentExams.map((exam) => (
-                                                    <tr
-                                                        key={exam.id}
-                                                        className="transition-colors hover:bg-rose-50/40"
-                                                    >
-                                                        <td className="px-4 py-3 font-medium text-slate-900">
-                                                            {exam.patientName}
-                                                        </td>
-                                                        <td className="px-4 py-3 text-slate-600">
-                                                            {exam.institution}
-                                                        </td>
-                                                        <td className="px-4 py-3 text-slate-500">
-                                                            {formatDate(
-                                                                exam.scanDate,
-                                                            )}
-                                                        </td>
+                                <div className="overflow-x-auto rounded-lg border border-slate-100">
+                                    <table className="w-full min-w-[680px] text-xs sm:text-sm">
+                                        <thead>
+                                            <tr className="border-b border-slate-100 bg-slate-50/80 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
+                                                <th className="px-4 py-3">
+                                                    Nama
+                                                </th>
+                                                <th className="px-4 py-3">
+                                                    Instansi
+                                                </th>
+                                                <th className="px-4 py-3">
+                                                    Tanggal
+                                                </th>
+                                                <th className="px-4 py-3">
+                                                    Status
+                                                </th>
+                                                <th className="px-4 py-3 text-center">
+                                                    Aksi
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="divide-y divide-slate-50">
+                                            <phantom-ui loading={loading} count={5} count-gap={8} animation="shimmer">
+                                                {loading ? (
+                                                    <tr className="transition-colors hover:bg-rose-50/40">
+                                                        <td className="px-4 py-3 font-medium text-slate-900">Nama Pasien</td>
+                                                        <td className="px-4 py-3 text-slate-600">Instansi Contoh</td>
+                                                        <td className="px-4 py-3 text-slate-500">01 Jan 2024</td>
                                                         <td className="px-4 py-3">
-                                                            <span
-                                                                className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${
-                                                                    exam.status ===
-                                                                    "Completed"
-                                                                        ? "bg-emerald-100 text-emerald-700"
-                                                                        : "bg-amber-100 text-amber-700"
-                                                                }`}
-                                                            >
-                                                                {exam.status}
-                                                            </span>
+                                                            <span className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold bg-emerald-100 text-emerald-700">Completed</span>
                                                         </td>
                                                         <td className="px-4 py-3">
                                                             <div className="flex items-center justify-center gap-2">
-                                                                <Button
-                                                                    size="sm"
-                                                                    variant="outline"
-                                                                    className="h-8 px-3 text-xs"
-                                                                    onClick={() =>
-                                                                        handleViewReport(
-                                                                            exam.token ||
-                                                                                exam.id,
-                                                                        )
-                                                                    }
-                                                                >
-                                                                    View
-                                                                </Button>
-                                                                <Button
-                                                                    size="sm"
-                                                                    className="h-8 gap-1.5 px-3 text-xs"
-                                                                    onClick={() =>
-                                                                        handleOpenQR(
-                                                                            exam,
-                                                                        )
-                                                                    }
-                                                                >
-                                                                    <QrCode
-                                                                        size={
-                                                                            13
-                                                                        }
-                                                                    />
-                                                                    QR
-                                                                </Button>
+                                                                <button className="h-8 px-3 text-xs rounded-md border">View</button>
+                                                                <button className="h-8 gap-1.5 px-3 text-xs rounded-md bg-[#e86177] text-white">QR</button>
                                                             </div>
                                                         </td>
                                                     </tr>
-                                                ))}
-                                            </tbody>
-                                        </table>
-
-                                        {!recentExams.length && (
-                                            <div className="flex flex-col items-center gap-2 py-12 text-center">
-                                                <ClipboardList size={36} className="text-slate-200" />
-                                                <p className="text-sm text-slate-400">
-                                                    Data pemeriksaan tidak ditemukan.
-                                                </p>
-                                            </div>
-                                        )}
-                                    </div>
-                                )}
+                                                ) : recentExams.length > 0 ? (
+                                                    recentExams.map((exam) => (
+                                                        <tr
+                                                            key={exam.id}
+                                                            className="transition-colors hover:bg-rose-50/40"
+                                                        >
+                                                            <td className="px-4 py-3 font-medium text-slate-900">
+                                                                {exam.patientName}
+                                                            </td>
+                                                            <td className="px-4 py-3 text-slate-600">
+                                                                {exam.institution}
+                                                            </td>
+                                                            <td className="px-4 py-3 text-slate-500">
+                                                                {formatDate(
+                                                                    exam.scanDate,
+                                                                )}
+                                                            </td>
+                                                            <td className="px-4 py-3">
+                                                                <span
+                                                                    className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${
+                                                                        exam.status ===
+                                                                        "Completed"
+                                                                            ? "bg-emerald-100 text-emerald-700"
+                                                                            : "bg-amber-100 text-amber-700"
+                                                                    }`}
+                                                                >
+                                                                    {exam.status}
+                                                                </span>
+                                                            </td>
+                                                            <td className="px-4 py-3">
+                                                                <div className="flex items-center justify-center gap-2">
+                                                                    <Button
+                                                                        size="sm"
+                                                                        variant="outline"
+                                                                        className="h-8 px-3 text-xs"
+                                                                        onClick={() =>
+                                                                            handleViewReport(
+                                                                                exam.token ||
+                                                                                    exam.id,
+                                                                            )
+                                                                        }
+                                                                    >
+                                                                        View
+                                                                    </Button>
+                                                                    <Button
+                                                                        size="sm"
+                                                                        className="h-8 gap-1.5 px-3 text-xs"
+                                                                        onClick={() =>
+                                                                            handleOpenQR(
+                                                                                exam,
+                                                                            )
+                                                                        }
+                                                                    >
+                                                                        <QrCode
+                                                                            size={
+                                                                                13
+                                                                            }
+                                                                        />
+                                                                        QR
+                                                                    </Button>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    ))
+                                                ) : (
+                                                    <tr>
+                                                        <td colSpan={5} className="py-12 text-center">
+                                                            <div className="flex flex-col items-center gap-2">
+                                                                <ClipboardList size={36} className="text-slate-200" />
+                                                                <p className="text-sm text-slate-400">Data pemeriksaan tidak ditemukan.</p>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                )}
+                                            </phantom-ui>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </CardContent>
                         </Card>
 

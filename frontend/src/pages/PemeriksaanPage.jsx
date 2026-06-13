@@ -146,130 +146,137 @@ export default function PemeriksaanPage() {
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y divide-slate-50">
-                                        {loading ? (
-                                            <tr>
-                                                <td
-                                                    colSpan="5"
-                                                    className="py-14 text-center text-slate-400"
-                                                >
-                                                    <div className="flex flex-col items-center gap-2">
-                                                        <div className="h-6 w-6 animate-spin rounded-full border-2 border-[#e86177] border-t-transparent" />
-                                                        Memuat data...
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        ) : allExams.length > 0 ? (
-                                            allExams.map((exam) => (
-                                                <tr
-                                                    key={exam.id}
-                                                    className="hover:bg-rose-50/40 transition-colors"
-                                                >
-                                                    <td className="px-4 py-3 font-medium text-slate-900">
-                                                        {exam.patientName}
-                                                    </td>
-                                                    <td className="px-4 py-3 text-slate-700">
-                                                        {exam.institution}
-                                                    </td>
-                                                    <td className="px-4 py-3 text-slate-700">
-                                                        {formatDate(
-                                                            exam.scanDate,
-                                                        )}
-                                                    </td>
+                                        <phantom-ui loading={loading} count={10} count-gap={8} animation="shimmer">
+                                            {loading ? (
+                                                <tr className="hover:bg-rose-50/40 transition-colors">
+                                                    <td className="px-4 py-3 font-medium text-slate-900">Nama Pasien</td>
+                                                    <td className="px-4 py-3 text-slate-700">Instansi Contoh</td>
+                                                    <td className="px-4 py-3 text-slate-700">01 Jan 2024</td>
                                                     <td className="px-4 py-3">
-                                                        <span
-                                                            className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${
-                                                                exam.status ===
-                                                                "Completed"
-                                                                    ? "bg-emerald-100 text-emerald-700"
-                                                                    : "bg-amber-100 text-amber-700"
-                                                            }`}
-                                                        >
-                                                            {exam.status}
-                                                        </span>
+                                                        <span className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-emerald-100 text-emerald-700">Completed</span>
                                                     </td>
                                                     <td className="px-4 py-3">
                                                         <div className="flex items-center justify-center gap-1">
-                                                            {/* View Report */}
-                                                            <Button
-                                                                size="sm"
-                                                                variant="outline"
-                                                                className="h-8 gap-1 px-3"
-                                                                title="Lihat laporan"
-                                                                onClick={() =>
-                                                                    handleViewReport(
-                                                                        exam.token ||
-                                                                            exam.id,
-                                                                    )
-                                                                }
-                                                            >
-                                                                <Eye
-                                                                    size={13}
-                                                                />
-                                                                <span className="hidden sm:inline">
-                                                                    View
-                                                                </span>
-                                                            </Button>
-
-                                                            {/* Edit */}
-                                                            <Button
-                                                                size="sm"
-                                                                variant="ghost"
-                                                                className="h-8 w-8 p-0 text-brand hover:text-[#fb7185] hover:bg-rose-50"
-                                                                title="Edit pemeriksaan"
-                                                                onClick={() =>
-                                                                    handleEdit(
-                                                                        exam.id,
-                                                                    )
-                                                                }
-                                                            >
-                                                                <Pencil
-                                                                    size={14}
-                                                                />
-                                                            </Button>
-
-                                                            {/* QR Code */}
-                                                            <Button
-                                                                size="sm"
-                                                                variant="ghost"
-                                                                className="h-8 w-8 p-0 text-slate-400 hover:text-slate-700"
-                                                                title="QR Code"
-                                                                onClick={() =>
-                                                                    handleOpenQR(
-                                                                        exam,
-                                                                    )
-                                                                }
-                                                            >
-                                                                <QrCode
-                                                                    size={14}
-                                                                />
-                                                            </Button>
-
-                                                            {/* More */}
-                                                            <Button
-                                                                size="sm"
-                                                                variant="ghost"
-                                                                className="h-8 w-8 p-0 text-slate-300 hover:text-slate-500"
-                                                                title="Lainnya"
-                                                            >
-                                                                <MoreHorizontal
-                                                                    size={14}
-                                                                />
-                                                            </Button>
+                                                            <button className="h-8 gap-1 px-3 rounded-md border text-xs" title="Lihat laporan">View</button>
+                                                            <button className="h-8 w-8 p-0 rounded-md" title="Edit pemeriksaan"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg></button>
+                                                            <button className="h-8 w-8 p-0 rounded-md" title="QR Code"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="4" height="4"/></svg></button>
+                                                            <button className="h-8 w-8 p-0 rounded-md" title="Lainnya"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></button>
                                                         </div>
                                                     </td>
                                                 </tr>
-                                            ))
-                                        ) : (
-                                            <tr>
-                                                <td
-                                                    colSpan="5"
-                                                    className="py-14 text-center text-slate-400 italic"
-                                                >
-                                                    Tidak ada data pemeriksaan
-                                                    ditemukan.
-                                                </td>
-                                            </tr>
-                                        )}
+                                            ) : allExams.length > 0 ? (
+                                                allExams.map((exam) => (
+                                                    <tr
+                                                        key={exam.id}
+                                                        className="hover:bg-rose-50/40 transition-colors"
+                                                    >
+                                                        <td className="px-4 py-3 font-medium text-slate-900">
+                                                            {exam.patientName}
+                                                        </td>
+                                                        <td className="px-4 py-3 text-slate-700">
+                                                            {exam.institution}
+                                                        </td>
+                                                        <td className="px-4 py-3 text-slate-700">
+                                                            {formatDate(
+                                                                exam.scanDate,
+                                                            )}
+                                                        </td>
+                                                        <td className="px-4 py-3">
+                                                            <span
+                                                                className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${
+                                                                    exam.status ===
+                                                                    "Completed"
+                                                                        ? "bg-emerald-100 text-emerald-700"
+                                                                        : "bg-amber-100 text-amber-700"
+                                                                }`}
+                                                            >
+                                                                {exam.status}
+                                                            </span>
+                                                        </td>
+                                                        <td className="px-4 py-3">
+                                                            <div className="flex items-center justify-center gap-1">
+                                                                {/* View Report */}
+                                                                <Button
+                                                                    size="sm"
+                                                                    variant="outline"
+                                                                    className="h-8 gap-1 px-3"
+                                                                    title="Lihat laporan"
+                                                                    onClick={() =>
+                                                                        handleViewReport(
+                                                                            exam.token ||
+                                                                                exam.id,
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    <Eye
+                                                                        size={13}
+                                                                    />
+                                                                    <span className="hidden sm:inline">
+                                                                        View
+                                                                    </span>
+                                                                </Button>
+
+                                                                {/* Edit */}
+                                                                <Button
+                                                                    size="sm"
+                                                                    variant="ghost"
+                                                                    className="h-8 w-8 p-0 text-brand hover:text-[#fb7185] hover:bg-rose-50"
+                                                                    title="Edit pemeriksaan"
+                                                                    onClick={() =>
+                                                                        handleEdit(
+                                                                            exam.id,
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    <Pencil
+                                                                        size={14}
+                                                                    />
+                                                                </Button>
+
+                                                                {/* QR Code */}
+                                                                <Button
+                                                                    size="sm"
+                                                                    variant="ghost"
+                                                                    className="h-8 w-8 p-0 text-slate-400 hover:text-slate-700"
+                                                                    title="QR Code"
+                                                                    onClick={() =>
+                                                                        handleOpenQR(
+                                                                            exam,
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    <QrCode
+                                                                        size={14}
+                                                                    />
+                                                                </Button>
+
+                                                                {/* More */}
+                                                                <Button
+                                                                    size="sm"
+                                                                    variant="ghost"
+                                                                    className="h-8 w-8 p-0 text-slate-300 hover:text-slate-500"
+                                                                    title="Lainnya"
+                                                                >
+                                                                    <MoreHorizontal
+                                                                        size={14}
+                                                                    />
+                                                                </Button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                ))
+                                            ) : (
+                                                <tr>
+                                                    <td
+                                                        colSpan="5"
+                                                        className="py-14 text-center text-slate-400 italic"
+                                                    >
+                                                        Tidak ada data pemeriksaan
+                                                        ditemukan.
+                                                    </td>
+                                                </tr>
+                                            )}
+                                        </phantom-ui>
                                     </tbody>
                                 </table>
                             </div>

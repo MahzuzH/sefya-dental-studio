@@ -136,100 +136,113 @@ export default function PatientPage() {
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y divide-slate-50">
-                                        {loading ? (
-                                            <tr>
-                                                <td
-                                                    colSpan={6}
-                                                    className="py-14 text-center text-slate-400"
-                                                >
-                                                    Memuat data...
-                                                </td>
-                                            </tr>
-                                        ) : visiblePatients.length === 0 ? (
-                                            <tr>
-                                                <td
-                                                    colSpan={6}
-                                                    className="py-16 text-center"
-                                                >
-                                                    <div className="mx-auto flex flex-col items-center gap-2">
-                                                        <Users
-                                                            size={40}
-                                                            className="text-rose-200"
-                                                        />
-                                                        <span className="text-sm font-medium text-slate-400">
-                                                            Tidak ada data pasien
-                                                            ditemukan
-                                                        </span>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        ) : (
-                                            visiblePatients.map((p) => (
-                                                <tr
-                                                    key={p.id}
-                                                    className="hover:bg-rose-50/40 transition-colors"
-                                                >
-                                                    <td className="px-4 py-3 font-medium text-slate-800">
-                                                        {p.full_name}
-                                                    </td>
-                                                    <td className="px-4 py-3 text-slate-400 font-mono text-xs">
-                                                        {p.student_id || "-"}
-                                                    </td>
-                                                    <td className="px-4 py-3 text-slate-600">
-                                                        {p.institution_name ||
-                                                            "-"}
-                                                    </td>
-                                                    <td className="px-4 py-3 text-slate-600">
-                                                        {p.age != null
-                                                            ? `${p.age} th`
-                                                            : "-"}
-                                                    </td>
+                                        <phantom-ui loading={loading} count={10} count-gap={8} animation="shimmer">
+                                            {loading ? (
+                                                <tr className="hover:bg-rose-50/40 transition-colors">
+                                                    <td className="px-4 py-3 font-medium text-slate-800">Nama Lengkap Pasien</td>
+                                                    <td className="px-4 py-3 text-slate-400 font-mono text-xs">AH-2024-XXXX</td>
+                                                    <td className="px-4 py-3 text-slate-600">Instansi Contoh</td>
+                                                    <td className="px-4 py-3 text-slate-600">17 th</td>
                                                     <td className="px-4 py-3">
-                                                        <span
-                                                            className={`inline-flex rounded-full px-2 py-0.5 text-[11px] font-medium ${genderBadge(p.gender)}`}
-                                                        >
-                                                            {genderLabel(
-                                                                p.gender,
-                                                            )}
-                                                        </span>
+                                                        <span className="inline-flex rounded-full px-2 py-0.5 text-[11px] font-medium bg-pink-100 text-pink-700">Perempuan</span>
                                                     </td>
                                                     <td className="px-4 py-3">
                                                         <div className="flex items-center justify-center gap-1">
-                                                            <Button
-                                                                size="sm"
-                                                                variant="ghost"
-                                                                className="h-8 w-8 p-0 text-slate-400 hover:text-slate-700"
-                                                                title="Lihat detail"
-                                                                onClick={() =>
-                                                                    setViewPatient(
-                                                                        p,
-                                                                    )
-                                                                }
-                                                            >
-                                                                <Eye
-                                                                    size={14}
-                                                                />
-                                                            </Button>
-                                                            <Button
-                                                                size="sm"
-                                                                variant="ghost"
-                                                                className="h-8 w-8 p-0 text-brand hover:text-[#fb7185] hover:bg-rose-50"
-                                                                title="Edit pasien"
-                                                                onClick={() =>
-                                                                    navigate(
-                                                                        `/pasien/${p.id}/edit`,
-                                                                    )
-                                                                }
-                                                            >
-                                                                <Pencil
-                                                                    size={14}
-                                                                />
-                                                            </Button>
+                                                            <button className="h-8 w-8 p-0 rounded-md" title="Lihat detail">
+                                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                                                            </button>
+                                                            <button className="h-8 w-8 p-0 rounded-md" title="Edit pasien">
+                                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+                                                            </button>
                                                         </div>
                                                     </td>
                                                 </tr>
-                                            ))
-                                        )}
+                                            ) : visiblePatients.length === 0 ? (
+                                                <tr>
+                                                    <td
+                                                        colSpan={6}
+                                                        className="py-16 text-center"
+                                                    >
+                                                        <div className="mx-auto flex flex-col items-center gap-2">
+                                                            <Users
+                                                                size={40}
+                                                                className="text-rose-200"
+                                                            />
+                                                            <span className="text-sm font-medium text-slate-400">
+                                                                Tidak ada data pasien
+                                                                ditemukan
+                                                            </span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            ) : (
+                                                visiblePatients.map((p) => (
+                                                    <tr
+                                                        key={p.id}
+                                                        className="hover:bg-rose-50/40 transition-colors"
+                                                    >
+                                                        <td className="px-4 py-3 font-medium text-slate-800">
+                                                            {p.full_name}
+                                                        </td>
+                                                        <td className="px-4 py-3 text-slate-400 font-mono text-xs">
+                                                            {p.student_id || "-"}
+                                                        </td>
+                                                        <td className="px-4 py-3 text-slate-600">
+                                                            {p.institution_name ||
+                                                                "-"}
+                                                        </td>
+                                                        <td className="px-4 py-3 text-slate-600">
+                                                            {p.age != null
+                                                                ? `${p.age} th`
+                                                                : "-"}
+                                                        </td>
+                                                        <td className="px-4 py-3">
+                                                            <span
+                                                                className={`inline-flex rounded-full px-2 py-0.5 text-[11px] font-medium ${genderBadge(p.gender)}`}
+                                                            >
+                                                                {genderLabel(
+                                                                    p.gender,
+                                                                )}
+                                                            </span>
+                                                        </td>
+                                                        <td className="px-4 py-3">
+                                                            <div className="flex items-center justify-center gap-1">
+                                                                <Button
+                                                                    size="sm"
+                                                                    variant="ghost"
+                                                                    className="h-8 w-8 p-0 text-slate-400 hover:text-slate-700"
+                                                                    title="Lihat detail"
+                                                                    onClick={() =>
+                                                                        setViewPatient(
+                                                                            p,
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    <Eye
+                                                                        size={14}
+                                                                    />
+                                                                </Button>
+                                                                <Button
+                                                                    size="sm"
+                                                                    variant="ghost"
+                                                                    className="h-8 w-8 p-0 text-brand hover:text-[#fb7185] hover:bg-rose-50"
+                                                                    title="Edit pasien"
+                                                                    onClick={() =>
+                                                                        navigate(
+                                                                            `/pasien/${p.id}/edit`,
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    <Pencil
+                                                                        size={14}
+                                                                    />
+                                                                </Button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                ))
+                                            )}
+                                        </phantom-ui>
                                     </tbody>
                                 </table>
                             </div>

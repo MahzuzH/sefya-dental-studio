@@ -35,22 +35,9 @@ export default function TambahPasienPage() {
         setField,
     } = useTambahPasienPageLogic();
 
-    /* ─── loading state ─── */
-    if (loading) {
-        return (
-            <div className="flex h-screen w-screen items-center justify-center bg-gradient-to-br from-[#fff5f7] via-white to-rose-50 font-poppins">
-                <div className="flex flex-col items-center gap-3">
-                    <div className="h-9 w-9 animate-spin rounded-full border-4 border-[#e86177] border-t-transparent" />
-                    <p className="text-sm text-slate-500">
-                        Memuat data pasien...
-                    </p>
-                </div>
-            </div>
-        );
-    }
-
     /* ─── render ─── */
     return (
+        <phantom-ui loading={loading} animation="shimmer">
         <div className="min-h-screen bg-gradient-to-br from-[#fff5f7] via-white to-rose-50 text-slate-900 font-poppins">
             <Sidebar active="pasien" />
 
@@ -362,5 +349,6 @@ export default function TambahPasienPage() {
                 </main>
             </div>
         </div>
+        </phantom-ui>
     );
 }
