@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -53,7 +54,11 @@ export default function PemeriksaanPage() {
         totalPages > 0 ? Math.round((page / totalPages) * 100) : 0;
 
     return (
-        <div className="h-screen w-screen overflow-hidden bg-gradient-to-br from-[#fff5f7] via-white to-rose-50 text-slate-900 font-poppins">
+            <>
+            <Helmet>
+              <meta name="robots" content="noindex, nofollow" />
+            </Helmet>
+            <div className="h-screen w-screen overflow-hidden bg-gradient-to-br from-[#fff5f7] via-white to-rose-50 text-slate-900 font-poppins">
             <Sidebar active="pemeriksaan" />
 
             <div className="h-full lg:pl-64">
@@ -357,5 +362,6 @@ export default function PemeriksaanPage() {
                 </DialogContent>
             </Dialog>
         </div>
+        </>
     );
 }

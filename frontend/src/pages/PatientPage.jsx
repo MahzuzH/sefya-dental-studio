@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { Sidebar } from "@/components/Sidebar";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -44,7 +45,11 @@ export default function PatientPage() {
 
     /* ─── render ─── */
     return (
-        <div className="h-screen w-screen overflow-hidden bg-gradient-to-br from-[#fff5f7] via-white to-rose-50 text-slate-900 font-poppins">
+            <>
+            <Helmet>
+              <meta name="robots" content="noindex, nofollow" />
+            </Helmet>
+            <div className="h-screen w-screen overflow-hidden bg-gradient-to-br from-[#fff5f7] via-white to-rose-50 text-slate-900 font-poppins">
             <Sidebar active="pasien" />
 
             <div className="h-full lg:pl-64">
@@ -373,5 +378,6 @@ export default function PatientPage() {
                 </DialogContent>
             </Dialog>
         </div>
+        </>
     );
 }

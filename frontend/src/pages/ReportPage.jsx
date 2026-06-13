@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useReportPageLogic } from "@/hooks/useReportPageLogic";
@@ -41,7 +42,11 @@ export default function ReportPage() {
     } = useReportPageLogic();
 
     return (
-        <div className="h-screen w-screen overflow-hidden bg-gradient-to-br from-[#fff5f7] via-white to-rose-50 text-slate-900 font-poppins">
+            <>
+            <Helmet>
+              <meta name="robots" content="noindex, nofollow" />
+            </Helmet>
+            <div className="h-screen w-screen overflow-hidden bg-gradient-to-br from-[#fff5f7] via-white to-rose-50 text-slate-900 font-poppins">
             <div className="h-full w-full">
                 <Sidebar active="report" />
 
@@ -347,5 +352,6 @@ export default function ReportPage() {
                 </main>
             </div>
         </div>
+        </>
     );
 }

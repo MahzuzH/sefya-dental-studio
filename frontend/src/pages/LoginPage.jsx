@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import loginImg from "../assets/login.png";
 import { useState, useEffect } from "react";
 import { preload } from "react-dom";
@@ -64,6 +65,10 @@ export default function LoginPage() {
   }, []);
 
   return (
+    <>
+    <Helmet>
+      <meta name="robots" content="noindex, nofollow" />
+    </Helmet>
     <div className="h-screen w-screen flex font-opensans bg-black text-[#ededed] overflow-hidden relative">
       {/* Ambient Background Glow */}
       <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-[#ff91a4]/5 blur-[120px] rounded-full pointer-events-none"></div>
@@ -183,5 +188,6 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }

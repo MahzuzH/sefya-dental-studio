@@ -5,17 +5,17 @@ const SEO = ({
     title = "Sefya Dental Studio | Layanan Gigi Premium & Terpercaya",
     description = "Sefya Dental Studio menawarkan perawatan gigi modern, aman, dan steril. Wujudkan senyum impian Anda dengan teknologi terbaru dan tim ahli kami.",
     keywords = "dokter gigi, dental studio, perawatan gigi, pembersihan karang gigi, behel gigi, kawat gigi, sefya dental studio",
-    url = "https://sefyadental.com", // Replace with real URL later
-    image = "/og-image.jpg", // Path to OG image
+    url = "https://sefyadentalstudio.web.id",
+    image = "https://sefyadentalstudio.web.id/og-image.svg",
 }) => {
     // Structured Data (JSON-LD) for Local Business
     const structuredData = {
         "@context": "https://schema.org",
         "@type": "Dentist",
         name: "Sefya Dental Studio",
-        image: "https://sefyadental.com/og-image.jpg",
-        "@id": "https://sefyadental.com",
-        url: "https://sefyadental.com",
+            image: "https://sefyadentalstudio.web.id/og-image.svg",
+            "@id": "https://sefyadentalstudio.web.id",
+            url: "https://sefyadentalstudio.web.id",
         telephone: "+6288975262351",
         address: {
             "@type": "PostalAddress",

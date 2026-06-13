@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { useEffect, useState, useMemo, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Sidebar } from "@/components/Sidebar";
@@ -476,8 +477,12 @@ export default function TambahPemeriksaanPage() {
 
     /* ─── render ─── */
     return (
+        <>
+        <Helmet>
+          <meta name="robots" content="noindex, nofollow" />
+        </Helmet>
         <phantom-ui loading={loading} animation="shimmer">
-        <div className="min-h-screen bg-gradient-to-br from-[#fff5f7] via-white to-rose-50 text-slate-900 font-poppins">
+            <div className="min-h-screen bg-gradient-to-br from-[#fff5f7] via-white to-rose-50 text-slate-900 font-poppins">
             <Sidebar active="pemeriksaan" />
 
             <div className="lg:pl-64">
@@ -1241,5 +1246,6 @@ export default function TambahPemeriksaanPage() {
             </Dialog>
         </div>
         </phantom-ui>
+        </>
     );
 }

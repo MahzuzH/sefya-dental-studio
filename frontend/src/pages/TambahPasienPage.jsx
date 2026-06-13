@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { Sidebar } from "@/components/Sidebar";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -37,8 +38,12 @@ export default function TambahPasienPage() {
 
     /* ─── render ─── */
     return (
+        <>
+        <Helmet>
+          <meta name="robots" content="noindex, nofollow" />
+        </Helmet>
         <phantom-ui loading={loading} animation="shimmer">
-        <div className="min-h-screen bg-gradient-to-br from-[#fff5f7] via-white to-rose-50 text-slate-900 font-poppins">
+            <div className="min-h-screen bg-gradient-to-br from-[#fff5f7] via-white to-rose-50 text-slate-900 font-poppins">
             <Sidebar active="pasien" />
 
             <div className="lg:pl-64">
@@ -350,5 +355,6 @@ export default function TambahPasienPage() {
             </div>
         </div>
         </phantom-ui>
+        </>
     );
 }
