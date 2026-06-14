@@ -7,12 +7,138 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Preconnect & DNS Prefetch -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="preload" as="image" href="/logo-navbar.png" fetchpriority="high" />
+
+  <!-- SEO: Fallback meta tags (overridden by Helmet at runtime) -->
+  <title>Sefya Dental Studio | Dokter Gigi Subang Terbaik & Terpercaya</title>
+  <meta name="description" content="Dokter gigi Subang profesional di Sefya Dental Studio. Perawatan gigi modern, steril & aman. Behel, cabut gigi, scaling, veneer, dan implan. Konsultasi gratis!" />
+  <meta name="keywords" content="dokter gigi subang, dokter gigi pagaden, klinik gigi subang, perawatan gigi subang, behel gigi subang, cabut gigi subang, scaling gigi subang, veneer gigi subang, sefya dental studio, dental studio subang, klinik gigi terbaik subang, dokter gigi terdekat" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://sefyadentalstudio.web.id" />
+  <meta name="geo.region" content="ID-JB" />
+  <meta name="geo.placename" content="Subang" />
+  <meta name="geo.position" content="-6.470056305125251;107.81009223152965" />
+  <meta name="ICBM" content="-6.470056305125251, 107.81009223152965" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Sefya Dental Studio | Dokter Gigi Subang Terbaik & Terpercaya" />
+  <meta property="og:description" content="Dokter gigi Subang profesional di Sefya Dental Studio. Perawatan gigi modern, steril & aman." />
+  <meta property="og:url" content="https://sefyadentalstudio.web.id" />
+  <meta property="og:image" content="https://sefyadentalstudio.web.id/og-image.svg" />
+  <meta property="og:site_name" content="Sefya Dental Studio" />
+  <meta property="og:locale" content="id_ID" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Sefya Dental Studio | Dokter Gigi Subang Terbaik & Terpercaya" />
+  <meta name="twitter:description" content="Dokter gigi Subang profesional di Sefya Dental Studio. Perawatan gigi modern, steril & aman." />
+  <meta name="twitter:image" content="https://sefyadentalstudio.web.id/og-image.svg" />
+
+  <link rel="alternate" href="https://sefyadentalstudio.web.id" hrefLang="id-id" />
+  <link rel="alternate" href="https://sefyadentalstudio.web.id" hrefLang="id" />
+
   <link
     href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
     rel="stylesheet" />
-  <title>Sefya Dental Studio</title>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Dentist",
+        "@id": "https://sefyadentalstudio.web.id#dentist",
+        "name": "Sefya Dental Studio",
+        "image": "https://sefyadentalstudio.web.id/og-image.svg",
+        "url": "https://sefyadentalstudio.web.id",
+        "telephone": "+6288975262351",
+        "email": "sefyadentalstudio@gmail.com",
+        "description": "Klinik dokter gigi di Subang dengan perawatan modern, steril, dan nyaman. Layanan behel, scaling, cabut gigi, veneer, implan, dan tambal gigi.",
+        "priceRange": "Rp 100.000 - Rp 5.000.000",
+        "areaServed": { "@type": "City", "name": ["Subang", "Pagaden", "Pamanukan", "Subang Regency"] },
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Layanan Gigi",
+          "itemListElement": [
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Pemasangan Behel / Kawat Gigi" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Scaling / Pembersihan Karang Gigi" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Cabut Gigi" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Veneer Gigi" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Tambal Gigi" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Implan Gigi" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Konsultasi Gigi" } }
+          ]
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Jl. Subang Pamanukan, Sukamulya",
+          "addressLocality": "Pagaden",
+          "addressRegion": "Subang",
+          "postalCode": "41252",
+          "addressCountry": "ID"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": -6.470056305125251,
+          "longitude": 107.81009223152965
+        },
+        "openingHoursSpecification": [
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": "Monday", "opens": "08:00", "closes": "20:00" },
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": "Tuesday", "opens": "08:00", "closes": "20:00" },
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": "Wednesday", "opens": "08:00", "closes": "20:00" },
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": "Thursday", "opens": "08:00", "closes": "20:00" },
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "08:00", "closes": "20:00" },
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "08:00", "closes": "20:00" },
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "08:00", "closes": "20:00" }
+        ],
+        "sameAs": [ "https://www.instagram.com/sefyadentalstudio" ],
+        "foundingDate": "2020",
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "bestRating": "5",
+          "ratingCount": "85",
+          "reviewCount": "85"
+        }
+      },
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://sefyadentalstudio.web.id#localbusiness",
+        "parentOrganization": { "@id": "https://sefyadentalstudio.web.id#dentist" },
+        "name": "Sefya Dental Studio",
+        "image": "https://sefyadentalstudio.web.id/og-image.svg",
+        "telephone": "+6288975262351",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Jl. Subang Pamanukan, Sukamulya",
+          "addressLocality": "Pagaden",
+          "addressRegion": "Subang",
+          "postalCode": "41252",
+          "addressCountry": "ID"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": -6.470056305125251,
+          "longitude": 107.81009223152965
+        }
+      },
+      {
+        "@type": "MedicalBusiness",
+        "@id": "https://sefyadentalstudio.web.id#medical",
+        "parentOrganization": { "@id": "https://sefyadentalstudio.web.id#dentist" },
+        "name": "Sefya Dental Studio",
+        "specialty": "Dentistry"
+      }
+    ]
+  }
+  </script>
 </head>
 
 <body>

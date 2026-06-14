@@ -1,4 +1,5 @@
-import React, { useCallback, useMemo, memo } from "react";
+import { Helmet } from "react-helmet-async";
+import { useCallback, useMemo, memo } from "react";
 import {
     Info,
     CheckCircle2,
@@ -93,6 +94,11 @@ export default function PublicReportPage() {
     /* ─── Loading State ─────────────────────────────────────────────── */
     if (loading) {
         return (
+            <>
+            <Helmet>
+                <title>Memuat Laporan... | Sefya Dental Studio Subang</title>
+                <meta name="robots" content="noindex" />
+            </Helmet>
             <div className="flex h-screen items-center justify-center bg-white relative overflow-hidden">
                 <div className="absolute top-[-20%] right-[-10%] w-96 h-96 bg-[#ff91a4]/10 rounded-full blur-[100px] pointer-events-none"></div>
                 <div className="absolute bottom-[-20%] left-[-10%] w-96 h-96 bg-[#f472b6]/10 rounded-full blur-[100px] pointer-events-none"></div>
@@ -103,12 +109,18 @@ export default function PublicReportPage() {
                     </p>
                 </div>
             </div>
+            </>
         );
     }
 
-    /* ─── Error State ───────────────────────────────────────────────── */
+    /* ─── Error State ────────────────────────────────────────────────── */
     if (error) {
         return (
+            <>
+            <Helmet>
+                <title>Laporan Tidak Ditemukan | Sefya Dental Studio Subang</title>
+                <meta name="robots" content="noindex" />
+            </Helmet>
             <div className="flex h-screen flex-col items-center justify-center bg-white p-6 text-center relative overflow-hidden">
                 <div className="absolute top-[-20%] right-[-10%] w-96 h-96 bg-[#ff91a4]/10 rounded-full blur-[100px] pointer-events-none"></div>
                 <div className="mx-auto mb-6 w-16 h-16 rounded-2xl bg-red-50 border border-red-200 flex items-center justify-center">
@@ -125,11 +137,53 @@ export default function PublicReportPage() {
                     Coba Lagi
                 </button>
             </div>
+            </>
         );
     }
 
     /* ─── Main Report ───────────────────────────────────────────────── */
+    const reportTitle = report?.patient_name
+        ? `Laporan Kesehatan Gigi - ${report.patient_name} | Sefya Dental Studio Subang`
+        : "Laporan Kesehatan Gigi | Sefya Dental Studio Subang";
+    const reportDesc = report?.patient_name
+        ? `Laporan hasil pemeriksaan gigi ${report.patient_name} di Sefya Dental Studio Subang. ${report.diagnosis?.length || 0} temuan diagnosis tercatat.`
+        : "Laporan hasil pemeriksaan gigi digital dari Sefya Dental Studio, klinik dokter gigi terpercaya di Subang.";
+
+    const reportSchema = report?.patient_name ? {
+        "@context": "https://schema.org",
+        "@type": "MedicalReport",
+        name: `Laporan Kesehatan Gigi - ${report.patient_name}`,
+        datePublished: report.scan_date || new Date().toISOString().split("T")[0],
+        about: {
+            "@type": "Patient",
+            name: report.patient_name,
+        },
+        author: {
+            "@type": "Dentist",
+            name: "Sefya Dental Studio",
+            url: "https://sefyadentalstudio.web.id",
+        },
+    } : null;
+
     return (
+        <>
+        <Helmet>
+            <title>{reportTitle}</title>
+            <meta name="description" content={reportDesc} />
+            <meta name="robots" content="index, follow" />
+            <link rel="canonical" href={`https://sefyadentalstudio.web.id/report/${id}`} />
+            <meta property="og:title" content={reportTitle} />
+            <meta property="og:description" content={reportDesc} />
+            <meta property="og:url" content={`https://sefyadentalstudio.web.id/report/${id}`} />
+            <meta property="og:type" content="article" />
+            <meta property="og:image" content="https://sefyadentalstudio.web.id/og-image.svg" />
+            <meta name="twitter:card" content="summary" />
+            <meta name="twitter:title" content={reportTitle} />
+            <meta name="twitter:description" content={reportDesc} />
+            {report?.patient_name && reportSchema && (
+                <script type="application/ld+json">{JSON.stringify(reportSchema)}</script>
+            )}
+        </Helmet>
         <div className="min-h-screen bg-white text-[#64748b] font-poppins selection:bg-[#ff91a4]/20 selection:text-[#be185d] relative z-0">
             {/* ── Ambient Background ─────────────────────────────────── */}
             <div className="fixed inset-0 z-[-1] pointer-events-none overflow-hidden">
@@ -288,7 +342,7 @@ export default function PublicReportPage() {
                 </div>
 
                 {/* ── Tooth Map ─────────────────────────────────────── */}
-                <div className="mb-8 overflow-hidden rounded-2xl border border-slate-200 bg-white p-3 sm:p-8 shadow-lg animate-[fadeInUp_0.6s_ease-out_0.3s_both] relative">
+                <div className="mb-8 rounded-2xl border border-slate-200 bg-white p-3 sm:p-8 shadow-lg animate-[fadeInUp_0.6s_ease-out_0.3s_both] relative">
                     <div className="absolute top-0 left-0 w-64 h-64 bg-[#ff91a4]/5 rounded-full blur-[80px] pointer-events-none"></div>
                     <div className="mb-8 flex items-center justify-between relative">
                         <div>
@@ -538,5 +592,6 @@ export default function PublicReportPage() {
                 }
             `}</style>
         </div>
+        </>
     );
 }

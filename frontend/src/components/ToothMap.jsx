@@ -31,32 +31,28 @@ const Tooth = memo(function Tooth({ number, diagData }) {
   }
 
   const bg = diagData?.color;
-  // Sleeker default colors for an elegant matte look
-  const fillColor = bg || "#27272a";
-  const strokeColor = bg || "#3f3f46";
+  const fillColor = bg || "#f8fafc";
+  const strokeColor = bg || "#cbd5e1";
 
   return (
     <div
-      className={`relative flex w-full aspect-[3/4] max-w-[64px] flex-col items-center justify-center transition-all duration-300 group cursor-pointer hover:z-50 ${
+      className={`relative flex w-full aspect-[3/4] max-w-[64px] flex-col items-center justify-center transition-all group cursor-pointer hover:z-50 ${
         diagData
-          ? "hover:scale-[1.15] z-10"
-          : "hover:scale-110 opacity-80 hover:opacity-100 z-0"
+          ? "opacity-100 scale-105 hover:scale-[1.15] z-10"
+          : "hover:scale-110 opacity-95 hover:opacity-100 z-0"
       }`}
     >
       <svg
         viewBox="0 0 24 24"
         strokeLinejoin="round"
         strokeLinecap="round"
-        className={`w-full h-full transition-all duration-300 ${
+        className={`w-full h-full drop-shadow-sm group-hover:drop-shadow-md transition-all ${
           isUpper ? "rotate-180" : ""
         }`}
         style={{
           fill: fillColor,
           stroke: strokeColor,
           strokeWidth: diagData ? 0 : 1.5,
-          filter: diagData
-            ? `drop-shadow(0px 4px 6px rgba(0,0,0,0.4))`
-            : `drop-shadow(0px 2px 3px rgba(0,0,0,0.2))`,
         }}
       >
         <path d={path} />
@@ -69,69 +65,53 @@ const Tooth = memo(function Tooth({ number, diagData }) {
         }`}
       >
         <span
-          className="font-bold leading-none transition-colors duration-300"
+          className="font-black leading-none"
           style={{
-            fontSize: "clamp(8px, 1.8vw, 10px)",
-            color: diagData ? "#ffffff" : "#71717a",
-            textShadow: diagData ? "0px 1px 3px rgba(0,0,0,0.7)" : "none",
+            fontSize: "clamp(8px, 2vw, 10px)",
+            color: diagData ? "#fff" : "#475569",
+            textShadow: diagData
+              ? "0px 1px 2px rgba(0,0,0,0.5)"
+              : "0px 1px 3px rgba(255,255,255,1), 0px 0px 2px rgba(255,255,255,0.9)",
           }}
         >
           {number}
         </span>
       </div>
 
-      {/* Subtle Highlight Glow for Diseased Teeth */}
       {diagData && (
         <span
           className={`absolute ${
             isUpper ? "top-[-3px]" : "bottom-[-3px]"
-          } block h-[3px] w-[14px] rounded-full bg-white/30 blur-[1px] transition-all duration-300 group-hover:bg-white/50 group-hover:w-[18px]`}
+          } block h-[3px] w-[14px] rounded-full bg-slate-400/30 blur-[0.5px]`}
         />
       )}
 
-      {/* Premium CSS-Only Tooltip */}
       <div
         className={`absolute left-1/2 -translate-x-1/2 ${
-          isUpper ? "bottom-full mb-2" : "top-full mt-2"
-        } z-[100] pointer-events-none opacity-0 invisible group-hover:opacity-100 group-hover:visible translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out flex flex-col items-center w-max max-w-[220px]`}
+          isUpper ? "bottom-full mb-1.5" : "top-full mt-1.5"
+        } z-[100] pointer-events-none opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 flex flex-col items-center w-max`}
       >
         <div
-          className={`absolute left-1/2 -translate-x-1/2 w-2.5 h-2.5 bg-[#18181b] border-[#3f3f46] rotate-45 ${
+          className={`absolute left-1/2 -translate-x-1/2 w-2 h-2 bg-white border border-slate-200 rotate-45 ${
             isUpper
-              ? "bottom-[-5px] border-b border-r"
-              : "top-[-5px] border-t border-l"
+              ? "bottom-[-4px] border-b border-r"
+              : "top-[-4px] border-t border-l"
           }`}
         />
 
-        <div className="bg-[#18181b]/95 backdrop-blur-md border border-[#3f3f46]/60 text-white text-xs rounded-xl shadow-2xl p-3 flex flex-col gap-2 min-w-[130px] relative z-10">
-          <div className="flex items-center justify-between gap-4 border-b border-[#3f3f46]/60 pb-1.5">
-            <span className="font-bold text-[#e4e4e7] tracking-wide">
-              Gigi {number}
-            </span>
-            {diagData && (
+        <div className="bg-white border border-slate-200 text-slate-800 text-xs rounded-lg shadow-lg py-1.5 px-2.5 flex items-center gap-2 relative z-10 whitespace-nowrap">
+          <span className="font-bold text-slate-900">Gigi {number}</span>
+          {diagData ? (
+            <>
+              <span className="text-slate-300">·</span>
+              <span className="text-slate-600">{diagData.disease}</span>
               <span
-                className="w-2.5 h-2.5 rounded-full shadow-sm"
+                className="w-2 h-2 rounded-full"
                 style={{ backgroundColor: bg }}
               />
-            )}
-          </div>
-
-          {diagData ? (
-            <div className="flex flex-col gap-1 mt-0.5 text-left">
-              <span className="font-semibold text-[#f4f4f5] text-[13px]">
-                {diagData.disease}
-              </span>
-              {diagData.treatment_recommendation && (
-                <span className="text-[11px] text-[#a1a1aa] leading-relaxed">
-                  {diagData.treatment_recommendation}
-                </span>
-              )}
-            </div>
+            </>
           ) : (
-            <div className="flex items-center gap-1.5 mt-0.5 text-[#a1a1aa]">
-              <span className="block w-1.5 h-1.5 rounded-full bg-[#3f3f46]" />
-              <span className="italic text-[11px]">Normal / Sehat</span>
-            </div>
+            <span className="text-slate-400 italic">Normal</span>
           )}
         </div>
       </div>

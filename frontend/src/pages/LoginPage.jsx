@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import loginImg from "../assets/login.png";
+import loginImg from "../assets/login.webp";
 import { useState, useEffect } from "react";
 import { preload } from "react-dom";
 import { useLoginPageLogic } from "../hooks/useLoginPageLogic";

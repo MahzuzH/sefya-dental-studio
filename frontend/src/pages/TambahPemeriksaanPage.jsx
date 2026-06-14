@@ -906,6 +906,98 @@ export default function TambahPemeriksaanPage() {
                                 </CardContent>
                             </Card>
 
+                        </div>
+
+                        {/* ── RIGHT COLUMN: Odontogram & Diagnosis ── */}
+                        <div className="lg:col-span-1 space-y-4">
+                            <Card className="border-rose-100 bg-white shadow-sm transition-all duration-200">
+                                <CardContent className="p-6">
+                                    <div className="flex items-center justify-between mb-6">
+                                        <div>
+                                            <h3 className="text-lg font-bold text-slate-900">
+                                                Odontogram
+                                            </h3>
+                                            <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+                                                Klik pada nomor gigi untuk
+                                                menambah atau mengubah diagnosis
+                                            </p>
+                                        </div>
+                                        <span className="flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700 border border-emerald-200">
+                                            <CheckCircle2 size={12} />
+                                            {Object.keys(entries).length}{" "}
+                                            dipilih
+                                        </span>
+                                    </div>
+
+                                    {/* ── Upper Jaw ── */}
+                                    <div className="mb-2">
+                                        <p className="text-center text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-3">
+                                            Rahang Atas
+                                        </p>
+                                        <div className="flex items-center justify-center w-full gap-[2px] sm:gap-1 md:gap-1.5">
+                                            {UPPER_TEETH.map((t) => (
+                                                <div
+                                                    key={t}
+                                                    className="flex-1 max-w-[64px] min-w-[14px] sm:min-w-[20px]"
+                                                >
+                                                    <ToothBtn tooth={t} />
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Jaw divider */}
+                                    <div className="my-3 flex items-center gap-2 sm:gap-3 px-2 sm:px-6">
+                                        <div className="flex-1 border-t-2 border-dashed border-slate-200" />
+                                        <div className="rounded-full bg-rose-50 px-3 py-1 text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-brand border border-rose-100 whitespace-nowrap">
+                                            Garis Oklusal
+                                        </div>
+                                        <div className="flex-1 border-t-2 border-dashed border-slate-200" />
+                                    </div>
+
+                                    {/* ── Lower Jaw ── */}
+                                    <div className="mb-6 mt-1">
+                                        <div className="flex items-center justify-center w-full gap-[2px] sm:gap-1 md:gap-1.5 mb-2">
+                                            {LOWER_TEETH.map((t) => (
+                                                <div
+                                                    key={t}
+                                                    className="flex-1 max-w-[64px] min-w-[14px] sm:min-w-[20px]"
+                                                >
+                                                    <ToothBtn tooth={t} />
+                                                </div>
+                                            ))}
+                                        </div>
+                                        <p className="text-center text-[10px] font-bold uppercase tracking-widest text-slate-400 mt-1">
+                                            Rahang Bawah
+                                        </p>
+                                    </div>
+
+                                    {/* ── Condition Legend ── */}
+                                    {conditions.length > 0 && (
+                                        <div className="border-t border-slate-100 pt-5">
+                                            <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">
+                                                Legenda Kondisi
+                                            </p>
+                                            <div className="flex flex-wrap gap-2">
+                                                {conditions.map((c) => (
+                                                    <span
+                                                        key={c.id}
+                                                        className="flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold text-white"
+                                                        style={{
+                                                            backgroundColor:
+                                                                c.color_code ||
+                                                                "#ff91a4",
+                                                        }}
+                                                    >
+                                                        {c.name}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+                                </CardContent>
+                            </Card>
+
                             {/* Diagnosis Summary */}
                             <Card className="border-rose-100 bg-white shadow-sm transition-all duration-200">
                                 <CardContent className="p-5">
@@ -1016,97 +1108,6 @@ export default function TambahPemeriksaanPage() {
                                                 ))
                                         )}
                                     </div>
-                                </CardContent>
-                            </Card>
-                        </div>
-
-                        {/* ── RIGHT COLUMN: Odontogram ── */}
-                        <div className="lg:col-span-1">
-                            <Card className="border-rose-100 bg-white shadow-sm transition-all duration-200">
-                                <CardContent className="p-6">
-                                    <div className="flex items-center justify-between mb-6">
-                                        <div>
-                                            <h3 className="text-lg font-bold text-slate-900">
-                                                Odontogram
-                                            </h3>
-                                            <p className="text-xs text-slate-400 mt-1 leading-relaxed">
-                                                Klik pada nomor gigi untuk
-                                                menambah atau mengubah diagnosis
-                                            </p>
-                                        </div>
-                                        <span className="flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700 border border-emerald-200">
-                                            <CheckCircle2 size={12} />
-                                            {Object.keys(entries).length}{" "}
-                                            dipilih
-                                        </span>
-                                    </div>
-
-                                    {/* ── Upper Jaw ── */}
-                                    <div className="mb-2">
-                                        <p className="text-center text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-3">
-                                            Rahang Atas
-                                        </p>
-                                        <div className="flex items-center justify-center w-full gap-[2px] sm:gap-1 md:gap-1.5">
-                                            {UPPER_TEETH.map((t) => (
-                                                <div
-                                                    key={t}
-                                                    className="flex-1 max-w-[64px] min-w-[14px] sm:min-w-[20px]"
-                                                >
-                                                    <ToothBtn tooth={t} />
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-
-                                    {/* Jaw divider */}
-                                    <div className="my-3 flex items-center gap-2 sm:gap-3 px-2 sm:px-6">
-                                        <div className="flex-1 border-t-2 border-dashed border-slate-200" />
-                                        <div className="rounded-full bg-rose-50 px-3 py-1 text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-brand border border-rose-100 whitespace-nowrap">
-                                            Garis Oklusal
-                                        </div>
-                                        <div className="flex-1 border-t-2 border-dashed border-slate-200" />
-                                    </div>
-
-                                    {/* ── Lower Jaw ── */}
-                                    <div className="mb-6 mt-1">
-                                        <div className="flex items-center justify-center w-full gap-[2px] sm:gap-1 md:gap-1.5 mb-2">
-                                            {LOWER_TEETH.map((t) => (
-                                                <div
-                                                    key={t}
-                                                    className="flex-1 max-w-[64px] min-w-[14px] sm:min-w-[20px]"
-                                                >
-                                                    <ToothBtn tooth={t} />
-                                                </div>
-                                            ))}
-                                        </div>
-                                        <p className="text-center text-[10px] font-bold uppercase tracking-widest text-slate-400 mt-1">
-                                            Rahang Bawah
-                                        </p>
-                                    </div>
-
-                                    {/* ── Condition Legend ── */}
-                                    {conditions.length > 0 && (
-                                        <div className="border-t border-slate-100 pt-5">
-                                            <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">
-                                                Legenda Kondisi
-                                            </p>
-                                            <div className="flex flex-wrap gap-2">
-                                                {conditions.map((c) => (
-                                                    <span
-                                                        key={c.id}
-                                                        className="flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold text-white"
-                                                        style={{
-                                                            backgroundColor:
-                                                                c.color_code ||
-                                                                "#ff91a4",
-                                                        }}
-                                                    >
-                                                        {c.name}
-                                                    </span>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    )}
                                 </CardContent>
                             </Card>
                         </div>

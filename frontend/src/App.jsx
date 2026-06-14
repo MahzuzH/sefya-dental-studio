@@ -10,6 +10,7 @@ const ReportPage = lazy(() => import("./pages/ReportPage"));
 const PatientPage = lazy(() => import("./pages/PatientPage"));
 const TambahPemeriksaanPage = lazy(() => import("./pages/TambahPemeriksaanPage"));
 const TambahPasienPage = lazy(() => import("./pages/TambahPasienPage"));
+const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/pasien/:id/edit" element={<TambahPasienPage />} />
           <Route path="/report" element={<ReportPage />} />
           <Route path="/report/:id" element={<PublicReportPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Suspense>
     </BrowserRouter>

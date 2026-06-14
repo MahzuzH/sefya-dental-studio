@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet-async";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Sidebar } from "@/components/Sidebar";
 import { usePemeriksaanPageLogic } from "@/hooks/usePemeriksaanPageLogic";
 import {
@@ -151,25 +152,17 @@ export default function PemeriksaanPage() {
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y divide-slate-50">
-                                        <phantom-ui loading={loading} count={10} count-gap={8} animation="shimmer">
-                                            {loading ? (
-                                                <tr className="hover:bg-rose-50/40 transition-colors">
-                                                    <td className="px-4 py-3 font-medium text-slate-900">Nama Pasien</td>
-                                                    <td className="px-4 py-3 text-slate-700">Instansi Contoh</td>
-                                                    <td className="px-4 py-3 text-slate-700">01 Jan 2024</td>
-                                                    <td className="px-4 py-3">
-                                                        <span className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-emerald-100 text-emerald-700">Completed</span>
-                                                    </td>
-                                                    <td className="px-4 py-3">
-                                                        <div className="flex items-center justify-center gap-1">
-                                                            <button className="h-8 gap-1 px-3 rounded-md border text-xs" title="Lihat laporan">View</button>
-                                                            <button className="h-8 w-8 p-0 rounded-md" title="Edit pemeriksaan"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg></button>
-                                                            <button className="h-8 w-8 p-0 rounded-md" title="QR Code"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="4" height="4"/></svg></button>
-                                                            <button className="h-8 w-8 p-0 rounded-md" title="Lainnya"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></button>
-                                                        </div>
-                                                    </td>
+                                        {loading ? (
+                                            Array.from({ length: 8 }).map((_, i) => (
+                                                <tr key={i} className="animate-pulse">
+                                                    <td className="px-4 py-3"><Skeleton className="h-4 w-36" /></td>
+                                                    <td className="px-4 py-3"><Skeleton className="h-4 w-28" /></td>
+                                                    <td className="px-4 py-3"><Skeleton className="h-4 w-24" /></td>
+                                                    <td className="px-4 py-3"><Skeleton className="h-6 w-20 rounded-full" /></td>
+                                                    <td className="px-4 py-3"><Skeleton className="h-8 w-32 mx-auto" /></td>
                                                 </tr>
-                                            ) : allExams.length > 0 ? (
+                                            ))
+                                        ) : allExams.length > 0 ? (
                                                 allExams.map((exam) => (
                                                     <tr
                                                         key={exam.id}
@@ -281,7 +274,6 @@ export default function PemeriksaanPage() {
                                                     </td>
                                                 </tr>
                                             )}
-                                        </phantom-ui>
                                     </tbody>
                                 </table>
                             </div>

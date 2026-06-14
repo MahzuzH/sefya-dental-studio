@@ -16,7 +16,7 @@ const doctors = [
         textColor: "text-[#ff91a4]",
     },
     {
-        name: "Vidia Eka Putri",
+        name: "Vidia",
         role: "Asisten Dokter Gigi",
         file: "vidi",
         accent: "bg-green-500",
@@ -123,7 +123,7 @@ export default function Doctors() {
                         </span>
                     </div>
                     <h2 className="text-3xl md:text-5xl font-bold text-[#0f172a] mb-6 tracking-tight">
-                        Ahli <span className="text-[#ff91a4]">Gigi</span> Kami
+                        Tim <span className="text-[#ff91a4]">Ahli</span> Kami
                     </h2>
                     <p className="text-[#64748b] text-lg leading-relaxed max-w-2xl">
                         Tenaga profesional kami yang berpengalaman siap
