@@ -33,6 +33,18 @@ export function useTambahPasienPageLogic() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
+  // autofill age from date_of_birth
+  useEffect(() => {
+    if (!form.date_of_birth) return;
+    const birth = new Date(form.date_of_birth);
+    if (isNaN(birth.getTime())) return;
+    const today = new Date();
+    let age = today.getFullYear() - birth.getFullYear();
+    const m = today.getMonth() - birth.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) age--;
+    setForm((f) => ({ ...f, age: String(age) }));
+  }, [form.date_of_birth]);
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {

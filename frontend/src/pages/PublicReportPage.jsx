@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import { useCallback, useMemo, memo } from "react";
+import { useCallback, useMemo, memo, useState } from "react";
 import {
     Info,
     CheckCircle2,
@@ -13,6 +13,7 @@ import {
     FileText,
     Camera,
     Stethoscope,
+    X,
 } from "lucide-react";
 import { usePublicReportPageLogic } from "@/hooks/usePublicReportPageLogic";
 import ToothMap from "@/components/ToothMap";
@@ -55,6 +56,7 @@ const staggerStyle = (i) => ({
 export default function PublicReportPage() {
     const { id, report, loading, error, cards, groupedRecommendations } =
         usePublicReportPageLogic();
+    const [selectedImage, setSelectedImage] = useState(null);
 
     /* ─── Memoized helpers ──────────────────────────────────────────── */
     const formatDate = useCallback((d) => {
@@ -464,7 +466,10 @@ export default function PublicReportPage() {
                                             <p className="mb-2 text-center text-[9px] font-bold uppercase tracking-wider text-[#94a3b8] group-hover:text-[#ff91a4] transition-colors h-7 flex items-center justify-center leading-tight">
                                                 {typeName.replace(/_/g, " ")}
                                             </p>
-                                            <div className="relative aspect-square overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 shadow-sm transition-all duration-300 group-hover:scale-[1.05] group-hover:shadow-lg group-hover:shadow-[#ff91a4]/10 group-hover:border-[#ff91a4]/30">
+                                            <div
+                                                className="relative aspect-square overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 shadow-sm transition-all duration-300 group-hover:scale-[1.05] group-hover:shadow-lg group-hover:shadow-[#ff91a4]/10 group-hover:border-[#ff91a4]/30 cursor-pointer"
+                                                onClick={() => imgUrl && setSelectedImage(imgUrl)}
+                                            >
                                                 {imgUrl ? (
                                                     <img
                                                         src={imgUrl}
@@ -558,6 +563,31 @@ export default function PublicReportPage() {
                     </div>
                 </div>
 
+                {/* ── Image Modal ───────────────────────────────────── */}
+                {selectedImage && (
+                    <div
+                        className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 animate-[fadeIn_0.2s_ease-out]"
+                        onClick={() => setSelectedImage(null)}
+                    >
+                        <div
+                            className="relative max-w-[90vw] max-h-[90vh] animate-[scaleIn_0.2s_ease-out]"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <button
+                                onClick={() => setSelectedImage(null)}
+                                className="absolute -top-3 -right-3 z-10 w-8 h-8 rounded-full bg-white shadow-md flex items-center justify-center hover:bg-slate-100 transition-colors"
+                            >
+                                <X size={16} className="text-slate-700" />
+                            </button>
+                            <img
+                                src={selectedImage}
+                                alt="Foto pemeriksaan"
+                                className="max-w-full max-h-[85vh] rounded-2xl shadow-2xl object-contain"
+                            />
+                        </div>
+                    </div>
+                )}
+
                 {/* ── Footer ────────────────────────────────────────── */}
                 <div className="mt-16 pt-8 border-t border-slate-200 text-center animate-[fadeInUp_0.6s_ease-out_0.6s_both]">
                     <div className="flex items-center justify-center gap-3 mb-3">
@@ -589,6 +619,14 @@ export default function PublicReportPage() {
                         opacity: 1;
                         transform: translateY(0);
                     }
+                }
+                @keyframes fadeIn {
+                    from { opacity: 0; }
+                    to { opacity: 1; }
+                }
+                @keyframes scaleIn {
+                    from { opacity: 0; transform: scale(0.9); }
+                    to { opacity: 1; transform: scale(1); }
                 }
             `}</style>
         </div>

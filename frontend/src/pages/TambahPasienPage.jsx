@@ -254,6 +254,7 @@ export default function TambahPasienPage() {
                                                 value={form.age}
                                                 onChange={setField("age")}
                                                 placeholder="0"
+                                                readOnly
                                             />
                                         </div>
                                     </div>
