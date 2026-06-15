@@ -82,114 +82,132 @@ export default function PemeriksaanPage() {
         totalPages > 0 ? Math.round((page / totalPages) * 100) : 0;
 
     return (
-            <>
+        <>
             <Helmet>
-              <meta name="robots" content="noindex, nofollow" />
+                <meta name="robots" content="noindex, nofollow" />
             </Helmet>
             <div className="h-screen w-screen overflow-hidden bg-gradient-to-br from-[#fff5f7] via-white to-rose-50 text-slate-900 font-poppins">
-            <Sidebar active="pemeriksaan" />
+                <Sidebar active="pemeriksaan" />
 
-            <div className="h-full lg:pl-64">
-                <main className="h-full overflow-hidden p-3 sm:p-4 space-y-4 flex flex-col">
-                    {/* Header */}
-                    <header className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-rose-100 bg-white px-4 py-3 shadow-sm shrink-0">
-                        <div>
-                            <h2 className="text-xl font-bold text-slate-900">
-                                Data Pemeriksaan
-                            </h2>
-                            <p className="text-sm text-slate-600">
-                                Kelola dan lihat semua riwayat pemeriksaan pasien.
-                            </p>
-                        </div>
-
-                        <div className="flex items-center gap-2">
-                            <Button
-                                className="gap-2 bg-[#e86177] text-white hover:bg-[#d44d63]"
-                                onClick={() => navigate("/pemeriksaan/baru")}
-                            >
-                                <Plus size={16} /> Pemeriksaan Baru
-                            </Button>
-                        </div>
-                    </header>
-
-                    {/* Error */}
-                    {error && (
-                        <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 shrink-0">
-                            {error}
-                        </div>
-                    )}
-
-                    {/* Table Card */}
-                    <Card className="border-rose-100 bg-white shadow-sm overflow-hidden flex flex-col flex-1 min-h-0">
-                        <CardContent className="p-0 flex flex-col h-full">
-                            {/* Toolbar */}
-                            <div className="p-4 border-b border-rose-50 flex flex-wrap items-center justify-between gap-4 shrink-0">
-                                <div className="flex items-center gap-2.5 rounded-lg border border-rose-100 bg-rose-50 px-3 py-2 w-full md:w-96">
-                                    <Search
-                                        size={16}
-                                        className="text-slate-500 shrink-0"
-                                    />
-                                    <Input
-                                        value={searchQuery}
-                                        onChange={(e) =>
-                                            setSearchQuery(e.target.value)
-                                        }
-                                        placeholder="Cari pasien, instansi, atau status..."
-                                        className="h-auto border-none bg-transparent p-0 text-sm shadow-none focus-visible:ring-0"
-                                    />
-                                </div>
-                                <div className="flex items-center gap-2">
-                                    <Button
-                                        variant="outline"
-                                        size="sm"
-                                        className="gap-2"
-                                    >
-                                        <Filter size={14} /> Filter
-                                    </Button>
-                                    <Button
-                                        variant="outline"
-                                        size="sm"
-                                        className="gap-2"
-                                    >
-                                        <Download size={14} /> Export
-                                    </Button>
-                                </div>
+                <div className="h-full lg:pl-64">
+                    <main className="h-full overflow-hidden p-3 sm:p-4 space-y-4 flex flex-col">
+                        {/* Header */}
+                        <header className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-rose-100 bg-white px-4 py-3 shadow-sm shrink-0">
+                            <div>
+                                <h2 className="text-xl font-bold text-slate-900">
+                                    Data Pemeriksaan
+                                </h2>
+                                <p className="text-sm text-slate-600">
+                                    Kelola dan lihat semua riwayat pemeriksaan
+                                    pasien.
+                                </p>
                             </div>
 
-                            {/* Table */}
-                            <div className="flex-1 overflow-auto">
-                                <table className="w-full text-sm">
-                                    <thead>
-                                        <tr className="bg-slate-50/80 text-xs font-semibold uppercase tracking-wider text-slate-500">
-                                            <th className="px-4 py-3 sticky top-0 bg-slate-50/80 z-10 shadow-[inset_0_-1px_0_0_rgba(0,0,0,0.05)]">
-                                                Nama Pasien
-                                            </th>
-                                            <th className="px-4 py-3 sticky top-0 bg-slate-50/80 z-10 shadow-[inset_0_-1px_0_0_rgba(0,0,0,0.05)]">
-                                                Instansi
-                                            </th>
-                                            <th className="px-4 py-3 sticky top-0 bg-slate-50/80 z-10 shadow-[inset_0_-1px_0_0_rgba(0,0,0,0.05)]">
-                                                Tanggal
-                                            </th>
-                                            <th className="px-4 py-3 sticky top-0 bg-slate-50/80 z-10 shadow-[inset_0_-1px_0_0_rgba(0,0,0,0.05)]">
-                                                Status
-                                            </th>
-                                            <th className="px-4 py-3 text-center sticky top-0 bg-slate-50/80 z-10 shadow-[inset_0_-1px_0_0_rgba(0,0,0,0.05)]">
-                                                Aksi
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="divide-y divide-slate-50">
-                                        {loading ? (
-                                            Array.from({ length: 8 }).map((_, i) => (
-                                                <tr key={i} className="animate-pulse">
-                                                    <td className="px-4 py-3"><Skeleton className="h-4 w-36" /></td>
-                                                    <td className="px-4 py-3"><Skeleton className="h-4 w-28" /></td>
-                                                    <td className="px-4 py-3"><Skeleton className="h-4 w-24" /></td>
-                                                    <td className="px-4 py-3"><Skeleton className="h-6 w-20 rounded-full" /></td>
-                                                    <td className="px-4 py-3"><Skeleton className="h-8 w-32 mx-auto" /></td>
-                                                </tr>
-                                            ))
-                                        ) : allExams.length > 0 ? (
+                            <div className="flex items-center gap-2">
+                                <Button
+                                    className="gap-2 bg-[#e86177] text-white hover:bg-[#d44d63]"
+                                    onClick={() =>
+                                        navigate("/pemeriksaan/baru")
+                                    }
+                                >
+                                    <Plus size={16} /> Pemeriksaan Baru
+                                </Button>
+                            </div>
+                        </header>
+
+                        {/* Error */}
+                        {error && (
+                            <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 shrink-0">
+                                {error}
+                            </div>
+                        )}
+
+                        {/* Table Card */}
+                        <Card className="border-rose-100 bg-white shadow-sm overflow-hidden flex flex-col flex-1 min-h-0">
+                            <CardContent className="p-0 flex flex-col h-full">
+                                {/* Toolbar */}
+                                <div className="p-4 border-b border-rose-50 flex flex-wrap items-center justify-between gap-4 shrink-0">
+                                    <div className="flex items-center gap-2.5 rounded-lg border border-rose-100 bg-rose-50 px-3 py-2 w-full md:w-96">
+                                        <Search
+                                            size={16}
+                                            className="text-slate-500 shrink-0"
+                                        />
+                                        <Input
+                                            value={searchQuery}
+                                            onChange={(e) =>
+                                                setSearchQuery(e.target.value)
+                                            }
+                                            placeholder="Cari pasien, instansi, atau status..."
+                                            className="h-auto border-none bg-transparent p-0 text-sm shadow-none focus-visible:ring-0"
+                                        />
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <Button
+                                            variant="outline"
+                                            size="sm"
+                                            className="gap-2"
+                                        >
+                                            <Filter size={14} /> Filter
+                                        </Button>
+                                        <Button
+                                            variant="outline"
+                                            size="sm"
+                                            className="gap-2"
+                                        >
+                                            <Download size={14} /> Export
+                                        </Button>
+                                    </div>
+                                </div>
+
+                                {/* Table */}
+                                <div className="flex-1 overflow-auto">
+                                    <table className="w-full text-sm">
+                                        <thead>
+                                            <tr className="bg-slate-50/80 text-xs font-semibold uppercase tracking-wider text-slate-500">
+                                                <th className="px-4 py-3 sticky top-0 bg-slate-50/80 z-10 shadow-[inset_0_-1px_0_0_rgba(0,0,0,0.05)]">
+                                                    Nama Pasien
+                                                </th>
+                                                <th className="px-4 py-3 sticky top-0 bg-slate-50/80 z-10 shadow-[inset_0_-1px_0_0_rgba(0,0,0,0.05)]">
+                                                    Instansi
+                                                </th>
+                                                <th className="px-4 py-3 sticky top-0 bg-slate-50/80 z-10 shadow-[inset_0_-1px_0_0_rgba(0,0,0,0.05)]">
+                                                    Tanggal
+                                                </th>
+                                                <th className="px-4 py-3 sticky top-0 bg-slate-50/80 z-10 shadow-[inset_0_-1px_0_0_rgba(0,0,0,0.05)]">
+                                                    Status
+                                                </th>
+                                                <th className="px-4 py-3 text-center sticky top-0 bg-slate-50/80 z-10 shadow-[inset_0_-1px_0_0_rgba(0,0,0,0.05)]">
+                                                    Aksi
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="divide-y divide-slate-50">
+                                            {loading ? (
+                                                Array.from({ length: 8 }).map(
+                                                    (_, i) => (
+                                                        <tr
+                                                            key={i}
+                                                            className="animate-pulse"
+                                                        >
+                                                            <td className="px-4 py-3">
+                                                                <Skeleton className="h-4 w-36" />
+                                                            </td>
+                                                            <td className="px-4 py-3">
+                                                                <Skeleton className="h-4 w-28" />
+                                                            </td>
+                                                            <td className="px-4 py-3">
+                                                                <Skeleton className="h-4 w-24" />
+                                                            </td>
+                                                            <td className="px-4 py-3">
+                                                                <Skeleton className="h-6 w-20 rounded-full" />
+                                                            </td>
+                                                            <td className="px-4 py-3">
+                                                                <Skeleton className="h-8 w-32 mx-auto" />
+                                                            </td>
+                                                        </tr>
+                                                    ),
+                                                )
+                                            ) : allExams.length > 0 ? (
                                                 allExams.map((exam) => (
                                                     <tr
                                                         key={exam.id}
@@ -234,7 +252,9 @@ export default function PemeriksaanPage() {
                                                                     }
                                                                 >
                                                                     <Eye
-                                                                        size={13}
+                                                                        size={
+                                                                            13
+                                                                        }
                                                                     />
                                                                     <span className="hidden sm:inline">
                                                                         View
@@ -254,7 +274,9 @@ export default function PemeriksaanPage() {
                                                                     }
                                                                 >
                                                                     <Pencil
-                                                                        size={14}
+                                                                        size={
+                                                                            14
+                                                                        }
                                                                     />
                                                                 </Button>
 
@@ -271,7 +293,9 @@ export default function PemeriksaanPage() {
                                                                     }
                                                                 >
                                                                     <QrCode
-                                                                        size={14}
+                                                                        size={
+                                                                            14
+                                                                        }
                                                                     />
                                                                 </Button>
 
@@ -288,7 +312,9 @@ export default function PemeriksaanPage() {
                                                                     }
                                                                 >
                                                                     <Trash2
-                                                                        size={14}
+                                                                        size={
+                                                                            14
+                                                                        }
                                                                     />
                                                                 </Button>
                                                             </div>
@@ -301,126 +327,170 @@ export default function PemeriksaanPage() {
                                                         colSpan="5"
                                                         className="py-14 text-center text-slate-400 italic"
                                                     >
-                                                        Tidak ada data pemeriksaan
-                                                        ditemukan.
+                                                        Tidak ada data
+                                                        pemeriksaan ditemukan.
                                                     </td>
                                                 </tr>
                                             )}
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            {/* Footer */}
-                            <div className="p-4 border-t border-slate-100 bg-slate-50/50 flex items-center justify-between text-xs text-slate-500 shrink-0">
-                                <span></span>
-                                <div className="flex gap-1 items-center">
-                                    <Pagination
-                                        page={page}
-                                        totalPages={totalPages}
-                                        onPageChange={setPage}
-                                    />
+                                        </tbody>
+                                    </table>
                                 </div>
+
+                                {/* Footer */}
+                                <div className="p-4 border-t border-slate-100 bg-slate-50/50 flex items-center justify-between text-xs text-slate-500 shrink-0">
+                                    <span></span>
+                                    <div className="flex gap-1 items-center">
+                                        <Pagination
+                                            page={page}
+                                            totalPages={totalPages}
+                                            onPageChange={setPage}
+                                        />
+                                    </div>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    </main>
+                </div>
+
+                {/* QR Modal */}
+                <Dialog open={isQRModalOpen} onOpenChange={setIsQRModalOpen}>
+                    <DialogContent className="sm:max-w-md">
+                        <DialogHeader>
+                            <DialogTitle>QR Code Pemeriksaan</DialogTitle>
+                            <DialogDescription>
+                                Scan QR ini untuk melihat laporan kesehatan gigi
+                                pasien.
+                            </DialogDescription>
+                        </DialogHeader>
+
+                        <div className="flex flex-col items-center justify-center gap-6 py-4">
+                            <div className="rounded-2xl border-4 border-rose-100 bg-white p-4 shadow-xl shadow-brand/20">
+                                {qrUrl && (
+                                    <Suspense
+                                        fallback={
+                                            <div className="w-[200px] h-[200px] flex items-center justify-center bg-slate-50">
+                                                <span className="text-slate-400 text-xs">
+                                                    Memuat QR...
+                                                </span>
+                                            </div>
+                                        }
+                                    >
+                                        <QRCodeDisplay url={qrUrl} />
+                                    </Suspense>
+                                )}
                             </div>
-                        </CardContent>
-                    </Card>
-                </main>
-            </div>
 
-            {/* QR Modal */}
-            <Dialog open={isQRModalOpen} onOpenChange={setIsQRModalOpen}>
-                <DialogContent className="sm:max-w-md">
-                    <DialogHeader>
-                        <DialogTitle>QR Code Pemeriksaan</DialogTitle>
-                        <DialogDescription>
-                            Scan QR ini untuk melihat laporan kesehatan gigi
-                            pasien.
-                        </DialogDescription>
-                    </DialogHeader>
+                            <div className="text-center">
+                                <p className="text-sm font-semibold text-slate-900">
+                                    {selectedExam?.patientName}
+                                </p>
+                                <p className="text-xs text-slate-500 mt-1">
+                                    {selectedExam?.institution}
+                                </p>
+                                <p className="text-xs text-slate-400 mt-0.5 font-mono">
+                                    ID: {selectedExam?.id?.slice(0, 8)}...
+                                </p>
+                            </div>
 
-                    <div className="flex flex-col items-center justify-center gap-6 py-4">
-                        <div className="rounded-2xl border-4 border-rose-100 bg-white p-4 shadow-xl shadow-brand/20">
-                            {qrUrl && (
-                                <Suspense fallback={<div className="w-[200px] h-[200px] flex items-center justify-center bg-slate-50"><span className="text-slate-400 text-xs">Memuat QR...</span></div>}>
-                                    <QRCodeDisplay url={qrUrl} />
-                                </Suspense>
-                            )}
+                            <div className="flex w-full gap-2">
+                                <Button
+                                    variant="outline"
+                                    className="flex-1"
+                                    onClick={() => setIsQRModalOpen(false)}
+                                >
+                                    Tutup
+                                </Button>
+                                <Button
+                                    className="flex-1 gap-2 bg-[#e86177] text-white hover:bg-[#d44d63]"
+                                    onClick={() => {
+                                        const qrCanvas =
+                                            document.querySelector("canvas");
+                                        if (!qrCanvas) return;
+                                        const bgImg = new Image();
+                                        bgImg.onload = () => {
+                                            const composite =
+                                                document.createElement(
+                                                    "canvas",
+                                                );
+                                            composite.width = bgImg.width;
+                                            composite.height = bgImg.height;
+                                            const ctx =
+                                                composite.getContext("2d");
+                                            ctx.drawImage(bgImg, 0, 0);
+                                            const qrW = Math.round(
+                                                bgImg.width * 0.34,
+                                            );
+                                            const qrH = qrW;
+                                            const qrX = Math.round(
+                                                (bgImg.width - qrW) / 2,
+                                            );
+                                            const qrY = Math.round(
+                                                bgImg.height * 0.4625,
+                                            );
+                                            ctx.drawImage(
+                                                qrCanvas,
+                                                qrX,
+                                                qrY,
+                                                qrW,
+                                                qrH,
+                                            );
+                                            const link =
+                                                document.createElement("a");
+                                            link.download = `QR-${selectedExam?.patientName}.png`;
+                                            link.href =
+                                                composite.toDataURL(
+                                                    "image/png",
+                                                );
+                                            link.click();
+                                        };
+                                        bgImg.src = "/qr code.png";
+                                    }}
+                                >
+                                    <Download size={16} /> Download QR
+                                </Button>
+                            </div>
                         </div>
+                    </DialogContent>
+                </Dialog>
 
-                        <div className="text-center">
-                            <p className="text-sm font-semibold text-slate-900">
-                                {selectedExam?.patientName}
-                            </p>
-                            <p className="text-xs text-slate-500 mt-1">
-                                {selectedExam?.institution}
-                            </p>
-                            <p className="text-xs text-slate-400 mt-0.5 font-mono">
-                                ID: {selectedExam?.id?.slice(0, 8)}...
-                            </p>
-                        </div>
-
-                        <div className="flex w-full gap-2">
+                {/* ── Delete Confirmation ── */}
+                <Dialog
+                    open={deleteTarget !== null}
+                    onOpenChange={(open) => {
+                        if (!open) setDeleteTarget(null);
+                    }}
+                >
+                    <DialogContent className="max-w-sm">
+                        <DialogHeader>
+                            <DialogTitle className="flex items-center gap-2 text-red-600">
+                                <AlertTriangle size={20} /> Hapus Pemeriksaan
+                            </DialogTitle>
+                        </DialogHeader>
+                        <p className="text-sm text-slate-600">
+                            Yakin ingin menghapus pemeriksaan{" "}
+                            <strong>{deleteTarget?.patientName}</strong>? Semua
+                            data terkait akan dihapus permanen.
+                        </p>
+                        <div className="flex gap-2 pt-2">
                             <Button
                                 variant="outline"
                                 className="flex-1"
-                                onClick={() => setIsQRModalOpen(false)}
+                                onClick={() => setDeleteTarget(null)}
+                                disabled={deleting}
                             >
-                                Tutup
+                                Batal
                             </Button>
                             <Button
-                                className="flex-1 gap-2 bg-[#e86177] text-white hover:bg-[#d44d63]"
-                                onClick={() => {
-                                    const canvas =
-                                        document.querySelector("canvas");
-                                    if (!canvas) return;
-                                    const url = canvas.toDataURL("image/png");
-                                    const link = document.createElement("a");
-                                    link.download = `QR-${selectedExam?.patientName}.png`;
-                                    link.href = url;
-                                    link.click();
-                                }}
+                                className="flex-1 bg-red-500 text-white hover:bg-red-600"
+                                onClick={handleDelete}
+                                disabled={deleting}
                             >
-                                <Download size={16} /> Download QR
+                                {deleting ? "Menghapus..." : "Hapus"}
                             </Button>
                         </div>
-                    </div>
-                </DialogContent>
-            </Dialog>
-
-            {/* ── Delete Confirmation ── */}
-            <Dialog
-                open={deleteTarget !== null}
-                onOpenChange={(open) => { if (!open) setDeleteTarget(null); }}
-            >
-                <DialogContent className="max-w-sm">
-                    <DialogHeader>
-                        <DialogTitle className="flex items-center gap-2 text-red-600">
-                            <AlertTriangle size={20} /> Hapus Pemeriksaan
-                        </DialogTitle>
-                    </DialogHeader>
-                    <p className="text-sm text-slate-600">
-                        Yakin ingin menghapus pemeriksaan <strong>{deleteTarget?.patientName}</strong>?
-                        Semua data terkait akan dihapus permanen.
-                    </p>
-                    <div className="flex gap-2 pt-2">
-                        <Button
-                            variant="outline"
-                            className="flex-1"
-                            onClick={() => setDeleteTarget(null)}
-                            disabled={deleting}
-                        >
-                            Batal
-                        </Button>
-                        <Button
-                            className="flex-1 bg-red-500 text-white hover:bg-red-600"
-                            onClick={handleDelete}
-                            disabled={deleting}
-                        >
-                            {deleting ? "Menghapus..." : "Hapus"}
-                        </Button>
-                    </div>
-                </DialogContent>
-            </Dialog>
-        </div>
+                    </DialogContent>
+                </Dialog>
+            </div>
         </>
     );
 }
