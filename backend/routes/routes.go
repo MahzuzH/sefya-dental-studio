@@ -34,12 +34,14 @@ func SetupRoutes(r *gin.Engine) {
 			protected.GET("/patients", controllers.GetPatients)
 			protected.GET("/patients/:id", controllers.GetPatientByID)
 			protected.PUT("/patients/:id", controllers.UpdatePatient)
+			protected.DELETE("/patients/:id", controllers.DeletePatient)
 
 			// checkups / scans
 			protected.GET("/scans", controllers.GetScans)
 			protected.GET("/checkups/:id", controllers.GetCheckupByID)
 			protected.POST("/checkups", controllers.CreateCheckup)
 			protected.PUT("/checkups/:id", controllers.UpdateCheckup)
+			protected.DELETE("/checkups/:id", controllers.DeleteCheckup)
 
 			// uploads
 			protected.POST("/upload", controllers.UploadImage)

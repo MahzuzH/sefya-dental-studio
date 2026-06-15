@@ -14,8 +14,10 @@ import {
     MoreHorizontal,
     Pencil,
     Eye,
+    Trash2,
+    AlertTriangle,
 } from "lucide-react";
-import { useEffect, Suspense, lazy } from "react";
+import { useEffect, Suspense, lazy, useState } from "react";
 const QRCodeDisplay = lazy(() => import("@/components/QRCodeDisplay"));
 import Pagination from "@/components/ui/pagination";
 import {
@@ -48,6 +50,31 @@ export default function PemeriksaanPage() {
         handleOpenQR,
         qrUrl,
     } = usePemeriksaanPageLogic();
+
+    const [deleteTarget, setDeleteTarget] = useState(null);
+    const [deleting, setDeleting] = useState(false);
+
+    const handleDelete = async () => {
+        if (!deleteTarget) return;
+        setDeleting(true);
+        const token = localStorage.getItem("token");
+        try {
+            const res = await fetch(`/api/checkups/${deleteTarget.id}`, {
+                method: "DELETE",
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            if (!res.ok) {
+                const data = await res.json().catch(() => ({}));
+                throw new Error(data.error || "Gagal menghapus pemeriksaan");
+            }
+            setDeleteTarget(null);
+            window.location.reload();
+        } catch (e) {
+            alert(e.message);
+        } finally {
+            setDeleting(false);
+        }
+    };
 
     const totalPages =
         total && limit ? Math.max(1, Math.ceil(total / limit)) : 1;
@@ -248,14 +275,19 @@ export default function PemeriksaanPage() {
                                                                     />
                                                                 </Button>
 
-                                                                {/* More */}
+                                                                {/* Delete */}
                                                                 <Button
                                                                     size="sm"
                                                                     variant="ghost"
-                                                                    className="h-8 w-8 p-0 text-slate-300 hover:text-slate-500"
-                                                                    title="Lainnya"
+                                                                    className="h-8 w-8 p-0 text-red-400 hover:text-red-600 hover:bg-red-50"
+                                                                    title="Hapus pemeriksaan"
+                                                                    onClick={() =>
+                                                                        setDeleteTarget(
+                                                                            exam,
+                                                                        )
+                                                                    }
                                                                 >
-                                                                    <MoreHorizontal
+                                                                    <Trash2
                                                                         size={14}
                                                                     />
                                                                 </Button>
@@ -350,6 +382,41 @@ export default function PemeriksaanPage() {
                                 <Download size={16} /> Download QR
                             </Button>
                         </div>
+                    </div>
+                </DialogContent>
+            </Dialog>
+
+            {/* ── Delete Confirmation ── */}
+            <Dialog
+                open={deleteTarget !== null}
+                onOpenChange={(open) => { if (!open) setDeleteTarget(null); }}
+            >
+                <DialogContent className="max-w-sm">
+                    <DialogHeader>
+                        <DialogTitle className="flex items-center gap-2 text-red-600">
+                            <AlertTriangle size={20} /> Hapus Pemeriksaan
+                        </DialogTitle>
+                    </DialogHeader>
+                    <p className="text-sm text-slate-600">
+                        Yakin ingin menghapus pemeriksaan <strong>{deleteTarget?.patientName}</strong>?
+                        Semua data terkait akan dihapus permanen.
+                    </p>
+                    <div className="flex gap-2 pt-2">
+                        <Button
+                            variant="outline"
+                            className="flex-1"
+                            onClick={() => setDeleteTarget(null)}
+                            disabled={deleting}
+                        >
+                            Batal
+                        </Button>
+                        <Button
+                            className="flex-1 bg-red-500 text-white hover:bg-red-600"
+                            onClick={handleDelete}
+                            disabled={deleting}
+                        >
+                            {deleting ? "Menghapus..." : "Hapus"}
+                        </Button>
                     </div>
                 </DialogContent>
             </Dialog>

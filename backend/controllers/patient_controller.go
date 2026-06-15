@@ -351,6 +351,31 @@ func UpdatePatient(c *gin.Context) {
 	GetPatientByID(c)
 }
 
+func DeletePatient(c *gin.Context) {
+	id := strings.TrimSpace(c.Param("id"))
+	if id == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid patient id"})
+		return
+	}
+
+	var count int64
+	if err := config.DB.WithContext(c.Request.Context()).Table("patients").Where("id = ?", id).Count(&count).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to check patient"})
+		return
+	}
+	if count == 0 {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Patient not found"})
+		return
+	}
+
+	if err := config.DB.WithContext(c.Request.Context()).Table("patients").Where("id = ?", id).Delete(nil).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to delete patient"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Patient deleted"})
+}
+
 func GetInstitutions(c *gin.Context) {
 	var institutions []institutionListItem
 

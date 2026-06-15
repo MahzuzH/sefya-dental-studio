@@ -512,6 +512,50 @@ func GetCheckupByID(c *gin.Context) {
 	})
 }
 
+func DeleteCheckup(c *gin.Context) {
+	id := strings.TrimSpace(c.Param("id"))
+	if id == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid checkup id"})
+		return
+	}
+
+	exists, err := recordExists(c.Request.Context(), "checkups", id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to check checkup"})
+		return
+	}
+	if !exists {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Checkup not found"})
+		return
+	}
+
+	tx := config.DB.WithContext(c.Request.Context()).Begin()
+	if tx.Error != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to start transaction"})
+		return
+	}
+
+	// delete related qr_tokens
+	_ = tx.Table("qr_tokens").Where("checkup_id = ?", id).Delete(nil).Error
+	// delete related odontogram_entries
+	_ = tx.Table("odontogram_entries").Where("checkup_id = ?", id).Delete(nil).Error
+	// delete related checkup_images
+	_ = tx.Table("checkup_images").Where("checkup_id = ?", id).Delete(nil).Error
+	// delete the checkup itself
+	if err := tx.Table("checkups").Where("id = ?", id).Delete(nil).Error; err != nil {
+		tx.Rollback()
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to delete checkup"})
+		return
+	}
+
+	if err := tx.Commit().Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to commit"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Checkup deleted"})
+}
+
 // GetImageTypes returns available image types
 func GetImageTypes(c *gin.Context) {
 	type trow struct {

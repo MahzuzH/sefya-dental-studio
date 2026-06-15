@@ -10,9 +10,10 @@ import {
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog";
-import { Search, Plus, Pencil, Eye, Users, X } from "lucide-react";
+import { Search, Plus, Pencil, Eye, Users, X, Trash2, AlertTriangle } from "lucide-react";
 import { usePatientPageLogic } from "@/hooks/usePatientPageLogic";
 import Pagination from "@/components/ui/pagination";
+import { useState } from "react";
 
 function genderLabel(gender) {
     if (gender === "male") return "Laki-laki";
@@ -43,6 +44,31 @@ export default function PatientPage() {
         setLimit,
         total,
     } = usePatientPageLogic();
+
+    const [deleteTarget, setDeleteTarget] = useState(null);
+    const [deleting, setDeleting] = useState(false);
+
+    const handleDelete = async () => {
+        if (!deleteTarget) return;
+        setDeleting(true);
+        const token = localStorage.getItem("token");
+        try {
+            const res = await fetch(`/api/patients/${deleteTarget.id}`, {
+                method: "DELETE",
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            if (!res.ok) {
+                const data = await res.json().catch(() => ({}));
+                throw new Error(data.error || "Gagal menghapus pasien");
+            }
+            setDeleteTarget(null);
+            window.location.reload();
+        } catch (e) {
+            alert(e.message);
+        } finally {
+            setDeleting(false);
+        }
+    };
 
     /* ─── render ─── */
     return (
@@ -233,6 +259,21 @@ export default function PatientPage() {
                                                                         size={14}
                                                                     />
                                                                 </Button>
+                                                                <Button
+                                                                    size="sm"
+                                                                    variant="ghost"
+                                                                    className="h-8 w-8 p-0 text-red-400 hover:text-red-600 hover:bg-red-50"
+                                                                    title="Hapus pasien"
+                                                                    onClick={() =>
+                                                                        setDeleteTarget(
+                                                                            p,
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    <Trash2
+                                                                        size={14}
+                                                                    />
+                                                                </Button>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -365,6 +406,41 @@ export default function PatientPage() {
                             </div>
                         </div>
                     )}
+                </DialogContent>
+            </Dialog>
+
+            {/* ── Delete Confirmation ── */}
+            <Dialog
+                open={deleteTarget !== null}
+                onOpenChange={(open) => { if (!open) setDeleteTarget(null); }}
+            >
+                <DialogContent className="max-w-sm">
+                    <DialogHeader>
+                        <DialogTitle className="flex items-center gap-2 text-red-600">
+                            <AlertTriangle size={20} /> Hapus Pasien
+                        </DialogTitle>
+                    </DialogHeader>
+                    <p className="text-sm text-slate-600">
+                        Yakin ingin menghapus <strong>{deleteTarget?.full_name}</strong>?
+                        Semua data terkait pasien ini akan dihapus permanen.
+                    </p>
+                    <div className="flex gap-2 pt-2">
+                        <Button
+                            variant="outline"
+                            className="flex-1"
+                            onClick={() => setDeleteTarget(null)}
+                            disabled={deleting}
+                        >
+                            Batal
+                        </Button>
+                        <Button
+                            className="flex-1 bg-red-500 text-white hover:bg-red-600"
+                            onClick={handleDelete}
+                            disabled={deleting}
+                        >
+                            {deleting ? "Menghapus..." : "Hapus"}
+                        </Button>
+                    </div>
                 </DialogContent>
             </Dialog>
         </div>
