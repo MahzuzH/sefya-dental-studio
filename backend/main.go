@@ -49,6 +49,7 @@ func requireEnv(key string) {
 func main() {
 	loadEnv()
 	requireEnv("JWT_SECRET")
+	requireEnv("DB_PASS")
 
 	r := gin.Default()
 
