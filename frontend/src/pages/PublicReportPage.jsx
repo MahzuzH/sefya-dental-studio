@@ -128,7 +128,7 @@ export default function PublicReportPage() {
                 <div className="mx-auto mb-6 w-16 h-16 rounded-2xl bg-red-50 border border-red-200 flex items-center justify-center">
                     <AlertCircle size={32} className="text-red-400" />
                 </div>
-                <h2 className="text-xl font-bold text-[#0f172a] font-montserrat">
+                <h2 className="text-xl font-bold text-[#0f172a] font-poppins">
                     Oops! Terjadi kesalahan
                 </h2>
                 <p className="mt-3 text-[#64748b] max-w-xs">{error}</p>
@@ -198,7 +198,7 @@ export default function PublicReportPage() {
             <div className="sticky top-0 z-40 border-b border-slate-200 bg-white/90 backdrop-blur-xl px-4 sm:px-6 py-4 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                     <div className="h-2.5 w-2.5 rounded-full bg-[#ff91a4] shadow-sm shadow-[#ff91a4]/50"></div>
-                    <span className="text-sm font-bold tracking-tight text-[#0f172a] uppercase font-montserrat">
+                    <span className="text-sm font-bold tracking-tight text-[#0f172a] uppercase font-poppins">
                         Oral Health Report
                     </span>
                 </div>
@@ -217,7 +217,7 @@ export default function PublicReportPage() {
                             Digital Report
                         </span>
                     </div>
-                    <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[#0f172a] font-montserrat leading-tight">
+                    <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[#0f172a] font-poppins leading-tight">
                         Laporan{" "}
                         <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#fb7185] via-[#ff91a4] to-[#f472b6]">
                             Kesehatan
@@ -235,7 +235,7 @@ export default function PublicReportPage() {
                     <div className="flex items-baseline justify-between mb-6 relative">
                         <div className="flex items-center gap-2">
                             <Shield size={16} className="text-[#ff91a4]" />
-                            <h2 className="text-lg font-bold text-[#0f172a] font-montserrat">
+                            <h2 className="text-lg font-bold text-[#0f172a] font-poppins">
                                 Ringkasan Profil
                             </h2>
                         </div>
@@ -353,7 +353,7 @@ export default function PublicReportPage() {
                                     size={16}
                                     className="text-[#ff91a4]"
                                 />
-                                <h3 className="text-lg font-bold text-[#0f172a] font-montserrat">
+                                <h3 className="text-lg font-bold text-[#0f172a] font-poppins">
                                     Peta Kesehatan Gigi
                                 </h3>
                             </div>
@@ -428,7 +428,7 @@ export default function PublicReportPage() {
                                     size={16}
                                     className="text-[#ff91a4]"
                                 />
-                                <h3 className="text-lg font-bold text-[#0f172a] font-montserrat">
+                                <h3 className="text-lg font-bold text-[#0f172a] font-poppins">
                                     Foto Pemeriksaan
                                 </h3>
                             </div>
@@ -497,7 +497,7 @@ export default function PublicReportPage() {
                 <div className="mb-8 space-y-4 animate-[fadeInUp_0.6s_ease-out_0.5s_both]">
                     <div className="flex items-center gap-3 mb-3">
                         <div className="h-7 w-1 rounded-full bg-gradient-to-b from-[#ff91a4] to-[#ff91a4]/30"></div>
-                        <h3 className="text-lg font-bold text-[#0f172a] font-montserrat">
+                        <h3 className="text-lg font-bold text-[#0f172a] font-poppins">
                             Diagnosis Detail
                         </h3>
                     </div>
@@ -596,7 +596,7 @@ export default function PublicReportPage() {
                             alt="Logo"
                             className="w-6 h-6 rounded-md object-cover"
                         />
-                        <p className="text-sm font-bold text-[#0f172a] font-montserrat tracking-tight">
+                        <p className="text-sm font-bold text-[#0f172a] font-poppins tracking-tight">
                             Sefya Dental Studio © {new Date().getFullYear()}
                         </p>
                     </div>

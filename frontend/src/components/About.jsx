@@ -112,6 +112,10 @@ const About = () => {
             <img
               src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&q=80&w=800&h=600"
               alt="Dental Equipment"
+              width="800"
+              height="600"
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-white/95 via-white/50 to-transparent flex items-end p-8 z-20">

@@ -3,7 +3,6 @@ import { createRoot } from "react-dom/client";
 import { HelmetProvider } from "react-helmet-async";
 import "./index.css";
 import "tailwindcss/tailwind.css";
-import "@fontsource-variable/geist";
 import "@aejkatappaja/phantom-ui";
 // import "@fontsource/poppins/400.css";
 // import "@fontsource/poppins/600.css";
