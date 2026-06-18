@@ -14,6 +14,8 @@ const fetcher = async ([url, token]) => {
 export function useDashboardPageLogic() {
     const navigate = useNavigate();
     const [searchQuery, setSearchQuery] = useState("");
+    const [institutionFilter, setInstitutionFilter] = useState("");
+    const [dateFilter, setDateFilter] = useState("");
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(20);
     const [debouncedQuery, setDebouncedQuery] = useState("");
@@ -37,6 +39,8 @@ export function useDashboardPageLogic() {
     params.set("page", String(page));
     params.set("limit", String(limit));
     if (debouncedQuery) params.set("q", debouncedQuery);
+    if (institutionFilter) params.set("institution", institutionFilter);
+    if (dateFilter) params.set("date", dateFilter);
 
     const { data: rawData, error: swrError, isLoading } = useSWR(
         token ? [`/api/scans?${params.toString()}`, token] : null,
@@ -221,6 +225,10 @@ export function useDashboardPageLogic() {
         error,
         searchQuery,
         setSearchQuery,
+        institutionFilter,
+        setInstitutionFilter,
+        dateFilter,
+        setDateFilter,
         page,
         setPage,
         limit,

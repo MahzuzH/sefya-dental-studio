@@ -99,19 +99,31 @@ const Tooth = memo(function Tooth({ number, diagData }) {
           }`}
         />
 
-        <div className="bg-white border border-slate-200 text-slate-800 text-xs rounded-lg shadow-lg py-1.5 px-2.5 flex items-center gap-2 relative z-10 whitespace-nowrap">
-          <span className="font-bold text-slate-900">Gigi {number}</span>
-          {diagData ? (
-            <>
-              <span className="text-slate-300">·</span>
-              <span className="text-slate-600">{diagData.disease}</span>
-              <span
-                className="w-2 h-2 rounded-full"
-                style={{ backgroundColor: bg }}
-              />
-            </>
-          ) : (
-            <span className="text-slate-400 italic">Normal</span>
+        <div className="bg-white border border-slate-200 text-slate-800 text-xs rounded-lg shadow-lg py-1.5 px-2.5 relative z-10 max-w-[200px]">
+          <div className="flex items-center gap-2 mb-0.5">
+            <span className="font-bold text-slate-900">Gigi {number}</span>
+            {diagData ? (
+              <>
+                <span className="text-slate-300">·</span>
+                <span className="text-slate-600 truncate">{diagData.disease}</span>
+                <span
+                  className="w-2 h-2 rounded-full shrink-0"
+                  style={{ backgroundColor: bg }}
+                />
+              </>
+            ) : (
+              <span className="text-slate-400 italic">Normal</span>
+            )}
+          </div>
+          {diagData?.tooth_surface && (
+            <div className="text-[10px] text-slate-400 mt-0.5">
+              Permukaan: {diagData.tooth_surface}
+            </div>
+          )}
+          {diagData?.notes && (
+            <div className="text-[10px] text-slate-400 mt-0.5 truncate">
+              {diagData.notes}
+            </div>
           )}
         </div>
       </div>

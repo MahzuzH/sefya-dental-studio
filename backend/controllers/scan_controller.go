@@ -33,21 +33,24 @@ type reportDiagnosis struct {
 	Tooth                   int    `json:"tooth"`
 	Disease                 string `json:"disease"`
 	Color                   string `json:"color"`
+	ToothSurface            string `json:"tooth_surface"`
+	Notes                   string `json:"notes"`
 	TreatmentRecommendation string `json:"treatment_recommendation"`
 	Symptoms                string `json:"symptoms"`
 }
 
 type reportResponse struct {
-	ID          string              `json:"id"`
-	PatientName string              `json:"patient_name"`
-	Institution string              `json:"institution"`
-	DateOfBirth string              `json:"date_of_birth"`
-	Age         int                 `json:"age"`
-	Gender      string              `json:"gender"`
-	ScanDate    string              `json:"scan_date"`
-	Status      string              `json:"status"`
-	Images      map[string][]string `json:"images"`
-	Diagnosis   []reportDiagnosis   `json:"diagnosis"`
+	ID            string              `json:"id"`
+	PatientName   string              `json:"patient_name"`
+	Institution   string              `json:"institution"`
+	DateOfBirth   string              `json:"date_of_birth"`
+	Age           int                 `json:"age"`
+	Gender        string              `json:"gender"`
+	ScanDate      string              `json:"scan_date"`
+	Status        string              `json:"status"`
+	GeneralNotes  string              `json:"general_notes"`
+	Images        map[string][]string `json:"images"`
+	Diagnosis     []reportDiagnosis   `json:"diagnosis"`
 }
 
 type odontogramEntryInput struct {
@@ -207,6 +210,8 @@ func GetScans(c *gin.Context) {
 	}
 
 	q := strings.TrimSpace(c.Query("q"))
+	institution := strings.TrimSpace(c.Query("institution"))
+	dateFilter := strings.TrimSpace(c.Query("date"))
 
 	var rows []scanRow
 
@@ -241,6 +246,12 @@ func GetScans(c *gin.Context) {
 		pattern := strings.ToLower(q)
 		base = base.Where("LOWER(p.full_name) LIKE ? OR LOWER(COALESCE(pi.name, '')) LIKE ? OR LOWER(c.status) LIKE ?",
 			fmt.Sprintf(like, pattern), fmt.Sprintf(like, pattern), fmt.Sprintf(like, pattern))
+	}
+	if institution != "" {
+		base = base.Where("pi.name = ?", institution)
+	}
+	if dateFilter != "" {
+		base = base.Where("c.checkup_date = ?", dateFilter)
 	}
 
 	// count total
@@ -293,14 +304,15 @@ func GetReport(c *gin.Context) {
 	}
 
 	type reportRow struct {
-		ID          string    `gorm:"column:id"`
-		PatientName string    `gorm:"column:patient_name"`
-		Institution string    `gorm:"column:institution"`
-		DateOfBirth string    `gorm:"column:date_of_birth"`
-		Age         *int      `gorm:"column:age"`
-		Gender      string    `gorm:"column:gender"`
-		CheckupDate time.Time `gorm:"column:checkup_date"`
-		Status      string    `gorm:"column:status"`
+		ID           string    `gorm:"column:id"`
+		PatientName  string    `gorm:"column:patient_name"`
+		Institution  string    `gorm:"column:institution"`
+		DateOfBirth  string    `gorm:"column:date_of_birth"`
+		Age          *int      `gorm:"column:age"`
+		Gender       string    `gorm:"column:gender"`
+		CheckupDate  time.Time `gorm:"column:checkup_date"`
+		Status       string    `gorm:"column:status"`
+		GeneralNotes string    `gorm:"column:general_notes"`
 	}
 
 	var row reportRow
@@ -315,7 +327,7 @@ func GetReport(c *gin.Context) {
 			COALESCE(p.gender, '') AS gender,
 			c.checkup_date,
 			c.status,
-			c.status
+			COALESCE(c.general_notes, '') AS general_notes
 		`).
 		Joins("JOIN patients p ON p.id = c.patient_id").
 		Joins("LEFT JOIN partner_institutions pi ON pi.id = p.institution_id").
@@ -330,14 +342,15 @@ func GetReport(c *gin.Context) {
 	}
 
 	report := reportResponse{
-		ID:          row.ID,
-		PatientName: row.PatientName,
-		Institution: row.Institution,
-		DateOfBirth: row.DateOfBirth,
-		ScanDate:    row.CheckupDate.Format("2006-01-02"),
-		Status:      normalizeStatus(row.Status),
-		Images:      map[string][]string{},
-		Diagnosis:   []reportDiagnosis{},
+		ID:           row.ID,
+		PatientName:  row.PatientName,
+		Institution:  row.Institution,
+		DateOfBirth:  row.DateOfBirth,
+		ScanDate:     row.CheckupDate.Format("2006-01-02"),
+		Status:       normalizeStatus(row.Status),
+		GeneralNotes: row.GeneralNotes,
+		Images:       map[string][]string{},
+		Diagnosis:    []reportDiagnosis{},
 	}
 
 	if row.Age != nil {
@@ -349,6 +362,8 @@ func GetReport(c *gin.Context) {
 		Tooth                   int    `gorm:"column:tooth_number"`
 		Disease                 string `gorm:"column:condition_name"`
 		Color                   string `gorm:"column:color_code"`
+		ToothSurface            string `gorm:"column:tooth_surface"`
+		Notes                   string `gorm:"column:notes"`
 		TreatmentRecommendation string `gorm:"column:treatment_recommendation"`
 		Symptoms                string `gorm:"column:symptoms"`
 	}
@@ -360,6 +375,8 @@ func GetReport(c *gin.Context) {
 			oe.tooth_number,
 			dc.name AS condition_name,
 			COALESCE(dc.color_code, '#10b981') AS color_code,
+			COALESCE(oe.tooth_surface, '') AS tooth_surface,
+			COALESCE(oe.notes, '') AS notes,
 			COALESCE(dc.treatment_recommendation, '') AS treatment_recommendation,
 			COALESCE(dc.symptoms, '') AS symptoms
 		`).
@@ -373,6 +390,8 @@ func GetReport(c *gin.Context) {
 			Tooth:                   d.Tooth,
 			Disease:                 d.Disease,
 			Color:                   d.Color,
+			ToothSurface:            d.ToothSurface,
+			Notes:                   d.Notes,
 			TreatmentRecommendation: d.TreatmentRecommendation,
 			Symptoms:                d.Symptoms,
 		})

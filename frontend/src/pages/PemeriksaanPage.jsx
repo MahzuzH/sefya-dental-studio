@@ -16,8 +16,18 @@ import {
     Eye,
     Trash2,
     AlertTriangle,
+    CalendarDays,
+    Building2,
+    X,
 } from "lucide-react";
 import { useEffect, Suspense, lazy, useState } from "react";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 const QRCodeDisplay = lazy(() => import("@/components/QRCodeDisplay"));
 import Pagination from "@/components/ui/pagination";
 import {
@@ -35,6 +45,10 @@ export default function PemeriksaanPage() {
         error,
         searchQuery,
         setSearchQuery,
+        institutionFilter,
+        setInstitutionFilter,
+        dateFilter,
+        setDateFilter,
         allExams,
         page,
         setPage,
@@ -50,6 +64,27 @@ export default function PemeriksaanPage() {
         handleOpenQR,
         qrUrl,
     } = usePemeriksaanPageLogic();
+
+    const [institutions, setInstitutions] = useState([]);
+    const [draftInstitution, setDraftInstitution] = useState("");
+    const [draftDate, setDraftDate] = useState("");
+
+    const applyFilters = () => {
+        setInstitutionFilter(draftInstitution);
+        setDateFilter(draftDate);
+        setPage(1);
+    };
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+        fetch("/api/institutions", {
+            headers: { Authorization: `Bearer ${token}` },
+        })
+            .then((r) => r.json())
+            .then((d) => setInstitutions(Array.isArray(d) ? d : []))
+            .catch(() => {});
+    }, []);
 
     const [deleteTarget, setDeleteTarget] = useState(null);
     const [deleting, setDeleting] = useState(false);
@@ -126,36 +161,92 @@ export default function PemeriksaanPage() {
                         <Card className="border-rose-100 bg-white shadow-sm overflow-hidden flex flex-col flex-1 min-h-0">
                             <CardContent className="p-0 flex flex-col h-full">
                                 {/* Toolbar */}
-                                <div className="p-4 border-b border-rose-50 flex flex-wrap items-center justify-between gap-4 shrink-0">
-                                    <div className="flex items-center gap-2.5 rounded-lg border border-rose-100 bg-rose-50 px-3 py-2 w-full md:w-96">
-                                        <Search
-                                            size={16}
-                                            className="text-slate-500 shrink-0"
-                                        />
-                                        <Input
-                                            value={searchQuery}
-                                            onChange={(e) =>
-                                                setSearchQuery(e.target.value)
-                                            }
-                                            placeholder="Cari pasien, instansi, atau status..."
-                                            className="h-auto border-none bg-transparent p-0 text-sm shadow-none focus-visible:ring-0"
-                                        />
+                                <div className="p-4 border-b border-rose-50 shrink-0">
+                                    <div className="flex flex-wrap items-center gap-3">
+                                        <div className="flex items-center gap-2.5 rounded-lg border border-rose-100 bg-rose-50 px-3 py-2 w-56">
+                                            <Search
+                                                size={16}
+                                                className="text-slate-500 shrink-0"
+                                            />
+                                            <Input
+                                                value={searchQuery}
+                                                onChange={(e) =>
+                                                    setSearchQuery(e.target.value)
+                                                }
+                                                placeholder="Cari nama pasien..."
+                                                className="h-auto border-none bg-transparent p-0 text-sm shadow-none focus-visible:ring-0"
+                                            />
+                                        </div>
+
+                                        <div className="w-48 shrink-0">
+                                            <Select
+                                                value={draftInstitution || "all"}
+                                                onValueChange={(v) =>
+                                                    setDraftInstitution(v === "all" ? "" : v)
+                                                }
+                                            >
+                                                <SelectTrigger className="h-9 text-xs border-rose-100 bg-rose-50 w-full overflow-hidden">
+                                                    <Building2 size={13} className="mr-1.5 text-slate-400 shrink-0" />
+                                                    <SelectValue placeholder="Instansi" className="truncate" />
+                                                </SelectTrigger>
+                                                <SelectContent className="w-48" align="start" sideOffset={4}>
+                                                    <SelectItem value="all">Semua Instansi</SelectItem>
+                                                    {institutions.map((inst) => (
+                                                        <SelectItem key={inst.id} value={inst.name} className="truncate">
+                                                            {inst.name}
+                                                        </SelectItem>
+                                                    ))}
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
+
+                                        <div className="w-44">
+                                            <Input
+                                                type="date"
+                                                value={draftDate}
+                                                onChange={(e) =>
+                                                    setDraftDate(e.target.value)
+                                                }
+                                                className="h-9 text-xs border-rose-100 bg-rose-50"
+                                            />
+                                        </div>
                                     </div>
-                                    <div className="flex items-center gap-2">
+
+                                    <div className="flex items-center gap-2 mt-3">
                                         <Button
                                             variant="outline"
                                             size="sm"
-                                            className="gap-2"
+                                            className="gap-2 h-9"
+                                            onClick={applyFilters}
                                         >
                                             <Filter size={14} /> Filter
                                         </Button>
+
                                         <Button
                                             variant="outline"
                                             size="sm"
-                                            className="gap-2"
+                                            className="gap-2 h-9"
+                                            onClick={() => {
+                                                setSearchQuery("");
+                                                setDraftInstitution("");
+                                                setDraftDate("");
+                                                setInstitutionFilter("");
+                                                setDateFilter("");
+                                                setPage(1);
+                                            }}
                                         >
-                                            <Download size={14} /> Export
+                                            <X size={14} /> Reset
                                         </Button>
+
+                                        <div className="ml-auto">
+                                            <Button
+                                                variant="outline"
+                                                size="sm"
+                                                className="gap-2 h-9"
+                                            >
+                                                <Download size={14} /> Export
+                                            </Button>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -240,44 +331,43 @@ export default function PemeriksaanPage() {
                                                             <div className="flex items-center justify-center gap-1">
                                                                 {/* View Report */}
                                                                 <Button
+                                                                    asChild
                                                                     size="sm"
                                                                     variant="outline"
                                                                     className="h-8 gap-1 px-3"
                                                                     title="Lihat laporan"
-                                                                    onClick={() =>
-                                                                        handleViewReport(
-                                                                            exam.token ||
-                                                                                exam.id,
-                                                                        )
-                                                                    }
                                                                 >
-                                                                    <Eye
-                                                                        size={
-                                                                            13
-                                                                        }
-                                                                    />
-                                                                    <span className="hidden sm:inline">
-                                                                        View
-                                                                    </span>
+                                                                    <a
+                                                                        href={`/report/${exam.token || exam.id}`}
+                                                                    >
+                                                                        <Eye
+                                                                            size={
+                                                                                13
+                                                                            }
+                                                                        />
+                                                                        <span className="hidden sm:inline">
+                                                                            View
+                                                                        </span>
+                                                                    </a>
                                                                 </Button>
 
                                                                 {/* Edit */}
                                                                 <Button
+                                                                    asChild
                                                                     size="sm"
                                                                     variant="ghost"
                                                                     className="h-8 w-8 p-0 text-brand hover:text-[#fb7185] hover:bg-rose-50"
                                                                     title="Edit pemeriksaan"
-                                                                    onClick={() =>
-                                                                        handleEdit(
-                                                                            exam.id,
-                                                                        )
-                                                                    }
                                                                 >
-                                                                    <Pencil
-                                                                        size={
-                                                                            14
-                                                                        }
-                                                                    />
+                                                                    <a
+                                                                        href={`/pemeriksaan/${exam.id}/edit`}
+                                                                    >
+                                                                        <Pencil
+                                                                            size={
+                                                                                14
+                                                                            }
+                                                                        />
+                                                                    </a>
                                                                 </Button>
 
                                                                 {/* QR Code */}
