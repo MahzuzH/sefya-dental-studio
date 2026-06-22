@@ -109,15 +109,22 @@ const About = () => {
 
           <div className="w-full md:w-1/2 rounded-2xl overflow-hidden shadow-2xl aspect-[4/3] relative border border-slate-200 group">
             <div className="absolute inset-0 bg-white/10 group-hover:bg-transparent transition-colors duration-500 z-10"></div>
-            <img
-              src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&q=80&w=800&h=600"
-              alt="Dental Equipment"
-              width="800"
-              height="600"
-              loading="lazy"
-              decoding="async"
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-            />
+            <picture>
+              <source
+                type="image/webp"
+                srcSet="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&q=80&w=400&h=300&fm=webp 400w, https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&q=80&w=800&h=600&fm=webp 800w"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&q=80&w=800&h=600"
+                alt="Dental Equipment"
+                width="800"
+                height="600"
+                loading="lazy"
+                decoding="async"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+            </picture>
             <div className="absolute inset-0 bg-gradient-to-t from-white/95 via-white/50 to-transparent flex items-end p-8 z-20">
               <p className="text-[#0f172a] font-medium text-sm md:text-base border-l-2 border-[#ff91a4] pl-4">
                 Mesin sterilisasi modern untuk{" "}

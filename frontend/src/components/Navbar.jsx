@@ -47,8 +47,10 @@ const Navbar = () => {
             className="flex items-center gap-3 p-1.5 -ml-1.5 rounded-xl transition-colors hover:bg-black/5"
           >
             <img
-              src="/logo-navbar.png"
+              src="/logo-navbar.webp"
               alt="Sefya Dental Studio"
+              width="177"
+              height="84"
               className="h-12 md:h-16 w-auto"
             />
           </Link>

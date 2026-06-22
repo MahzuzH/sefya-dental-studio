@@ -47,7 +47,7 @@ function Img({ file, name }) {
             <source
                 type="image/webp"
                 srcSet={`/doctors/${file}-320.webp 320w, /doctors/${file}-640.webp 640w, /doctors/${file}-960.webp 960w`}
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 45vw"
             />
             <img
                 src={`/doctors/${file}-640.webp`}
@@ -62,7 +62,7 @@ function Img({ file, name }) {
 
 function Card({ doctor }) {
     return (
-        <div className="group relative flex flex-col items-center w-full sm:w-[calc(50%-2rem)] lg:w-[calc(40%-2rem)] max-w-sm">
+        <div className="group relative flex flex-col items-center w-full sm:w-[calc(50%-2rem)] lg:w-[calc(45%-2rem)] max-w-md">
             <div className="relative w-full aspect-[3/4] rounded-3xl overflow-hidden border border-slate-200 bg-white shadow-xl transition-all duration-500 hover:border-[#ff91a4]/50 hover:shadow-2xl hover:-translate-y-2">
                 <div className="absolute inset-0 bg-gradient-to-t from-white/95 via-white/20 to-transparent z-10" />
                 <Img file={doctor.file} name={doctor.name} />
@@ -86,7 +86,7 @@ function Card({ doctor }) {
 
 function CardSmall({ doctor }) {
     return (
-        <div className="group relative flex flex-col items-center w-full sm:w-[calc(50%-2rem)] lg:w-[calc(33.333%-2rem)] max-w-xs">
+        <div className="group relative flex flex-col items-center w-full max-w-sm">
             <div className="relative w-full aspect-[3/4] rounded-3xl overflow-hidden border border-slate-200 bg-white shadow-xl transition-all duration-500 hover:border-[#ff91a4]/50 hover:shadow-2xl hover:-translate-y-2">
                 <div className="absolute inset-0 bg-gradient-to-t from-white/95 via-white/20 to-transparent z-10" />
                 <Img file={doctor.file} name={doctor.name} />
@@ -131,13 +131,13 @@ export default function Doctors() {
                     </p>
                 </div>
 
-                <div className="max-w-6xl mx-auto space-y-12">
+                <div className="space-y-12">
                     <div className="flex flex-wrap justify-center gap-8 md:gap-10">
                         {row1.map((doctor, i) => (
                             <Card key={i} doctor={doctor} />
                         ))}
                     </div>
-                    <div className="flex flex-wrap justify-center gap-8 md:gap-10">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
                         {row2.map((doctor, i) => (
                             <CardSmall key={i} doctor={doctor} />
                         ))}

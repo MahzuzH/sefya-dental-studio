@@ -83,15 +83,21 @@ const Gallery = () => {
               className="relative overflow-hidden rounded-3xl w-[300px] md:w-[400px] aspect-[4/3] border border-slate-200 bg-white shadow-lg hover:shadow-xl hover:shadow-[#ff91a4]/20 transition-all duration-500 cursor-pointer group shrink-0"
             >
               {/* Image */}
-              <img
-                src={image.url}
-                alt={image.title}
-                width="800"
-                height="600"
-                loading="lazy"
-                decoding="async"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-              />
+              <picture>
+                <source
+                  type="image/webp"
+                  srcSet={`${image.url}&fm=webp 800w`}
+                />
+                <img
+                  src={image.url}
+                  alt={image.title}
+                  width="800"
+                  height="600"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+              </picture>
 
               {/* Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-white/95 via-white/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
