@@ -127,7 +127,7 @@ export default function PublicReportPage() {
                     <p className="mt-3 text-[#64748b] max-w-xs">{error}</p>
                     <button
                         onClick={() => window.location.reload()}
-                        className="mt-8 rounded-full bg-[#ff91a4] hover:bg-[#fb7185] active:scale-95 px-8 py-3 font-semibold text-white shadow-lg shadow-rose-500/30 transition-all duration-200"
+                        className="mt-8 rounded-full bg-[#ff91a4] hover:bg-[#fb7185] active:scale-95 px-8 py-3 font-semibold text-black shadow-lg shadow-rose-500/30 transition-all duration-200"
                     >
                         Coba Lagi
                     </button>

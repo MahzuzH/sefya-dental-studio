@@ -17,7 +17,7 @@ const Hero = () => {
           <div className="max-w-2xl flex flex-col items-start text-left">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#ff91a4]/10 border border-[#ff91a4]/20 mb-8 animate-[fadeInUp_0.6s_ease-out]">
               <Sparkles size={14} className="text-[#ff91a4]" />
-              <span className="text-xs font-semibold tracking-widest text-[#e11d48] uppercase">
+              <span className="text-xs font-semibold tracking-widest text-[#be123c] uppercase">
                 Layanan Gigi Premium
               </span>
             </div>
@@ -41,7 +41,7 @@ const Hero = () => {
                 href={waLink}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center justify-center gap-2 bg-[#ff91a4] hover:bg-[#fb7185] active:scale-95 text-white min-w-[200px] px-8 py-4 rounded-full font-semibold transition-all duration-200 shadow-lg shadow-rose-500/30"
+                className="inline-flex items-center justify-center gap-2 bg-[#ff91a4] hover:bg-[#fb7185] active:scale-95 text-black min-w-[200px] px-8 py-4 rounded-full font-semibold transition-all duration-200 shadow-lg shadow-rose-500/30"
               >
                 <CalendarCheck size={20} />
                 <span>Booking Sekarang</span>

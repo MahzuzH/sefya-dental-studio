@@ -82,7 +82,7 @@ const Navbar = () => {
                 href={waLink}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-2 bg-[#ff91a4] hover:bg-[#fb7185] active:scale-95 text-white px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 shadow-sm shadow-rose-500/20"
+                className="flex items-center gap-2 bg-[#ff91a4] hover:bg-[#fb7185] active:scale-95 text-black px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 shadow-sm shadow-rose-500/20"
               >
                 <Phone size={16} />
                 <span>Buat Janji</span>
@@ -94,6 +94,7 @@ const Navbar = () => {
           <button
             className="md:hidden text-[#475569] hover:text-[#0f172a] p-2 transition-colors"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label={isMobileMenuOpen ? "Tutup menu" : "Buka menu"}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -129,7 +130,7 @@ const Navbar = () => {
               target="_blank"
               rel="noreferrer"
               href={waLink}
-              className="flex items-center justify-center gap-2 bg-[#ff91a4] hover:bg-[#fb7185] active:scale-95 text-white py-3 rounded-xl font-semibold transition-all shadow-sm shadow-rose-500/20"
+              className="flex items-center justify-center gap-2 bg-[#ff91a4] hover:bg-[#fb7185] active:scale-95 text-black py-3 rounded-xl font-semibold transition-all shadow-sm shadow-rose-500/20"
             >
               <Phone size={18} />
               <span>Booking via WhatsApp</span>

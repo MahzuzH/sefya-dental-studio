@@ -24,7 +24,7 @@ export default function NotFoundPage() {
                     </p>
                     <Link
                         to="/"
-                        className="inline-flex items-center gap-2 bg-[#ff91a4] hover:bg-[#fb7185] active:scale-95 text-white px-8 py-3 rounded-full font-semibold transition-all duration-200 shadow-lg shadow-rose-500/25"
+                        className="inline-flex items-center gap-2 bg-[#ff91a4] hover:bg-[#fb7185] active:scale-95 text-black px-8 py-3 rounded-full font-semibold transition-all duration-200 shadow-lg shadow-rose-500/25"
                     >
                         Kembali ke Beranda
                     </Link>

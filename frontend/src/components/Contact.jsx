@@ -90,7 +90,7 @@ const Contact = () => {
                 href={waLink}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center justify-center gap-2 w-full bg-[#ff91a4] hover:bg-[#fb7185] text-white font-semibold py-4 px-6 rounded-xl transition-all duration-200 shadow-md shadow-rose-500/20 active:scale-95"
+                className="flex items-center justify-center gap-2 w-full bg-[#ff91a4] hover:bg-[#fb7185] text-black font-semibold py-4 px-6 rounded-xl transition-all duration-200 shadow-md shadow-rose-500/20 active:scale-95"
               >
                 <MessageSquareShare size={20} />
                 <span>Chat via WhatsApp</span>
