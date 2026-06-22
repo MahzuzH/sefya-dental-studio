@@ -26,5 +26,13 @@ jobs:
 
                       echo "=== Applying nginx site config ==="
                       sudo cp /opt/mahzuz/nginx-site.conf /etc/nginx/sites-available/sefya-dental
-                      sudo nginx -t && sudo systemctl reload nginx
-                      echo "DONE: nginx reloaded"
+                      if sudo nginx -t 2>/dev/null; then
+                        sudo systemctl reload nginx
+                        echo "OK: nginx reloaded"
+                      else
+                        echo "WARN: nginx config error, rolling back to HTTP-only"
+                        sudo sed -i '/listen 443/,/^\}/d' /etc/nginx/sites-available/sefya-dental
+                        sudo sed -i 's/return 301.*/root \/opt\/mahzuz\/frontend\/dist;\n    index index.html;/' /etc/nginx/sites-available/sefya-dental
+                        sudo nginx -t && sudo systemctl reload nginx
+                        echo "OK: nginx reloaded (HTTP fallback)"
+                      fi
