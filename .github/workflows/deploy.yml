@@ -23,3 +23,8 @@ jobs:
                       cd /opt/mahzuz/backend && go build -o /opt/mahzuz/sefya-api .
                       cd /opt/mahzuz/frontend && npm install && npm run build
                       sudo systemctl restart sefya-api
+
+                      echo "=== Applying nginx site config ==="
+                      sudo cp /opt/mahzuz/nginx-site.conf /etc/nginx/sites-available/sefya-dental
+                      sudo nginx -t && sudo systemctl reload nginx
+                      echo "DONE: nginx reloaded"
