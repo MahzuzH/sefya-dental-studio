@@ -6,25 +6,30 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const dist = join(__dirname, "..", "dist");
 
 const files = readdirSync(join(dist, "assets"));
+
 const fonts = files
-  .filter((f) => f.endsWith(".woff2") && f.includes("poppins-latin-"))
+  .filter((f) => f.endsWith(".woff2") && f.startsWith("open-sans-latin-"))
   .sort();
 
-const links = fonts
-  .map((f) => {
-    const name = f.replace(/-[a-zA-Z0-9]+\.woff2$/, ".woff2");
-    return `<link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/${f}">`;
-  })
+const fontLinks = fonts
+  .map((f) => `<link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/${f}">`)
   .join("\n    ");
 
+const vendorIcons = files.find((f) => f.startsWith("vendor-icons-") && f.endsWith(".js"));
+const iconLink = vendorIcons
+  ? `<link rel="modulepreload" crossorigin href="/assets/${vendorIcons}">`
+  : "";
+
 const html = readFileSync(join(dist, "index.html"), "utf8");
-if (html.includes(links)) {
+
+const marker = '<link rel="preload" as="image"';
+if (html.includes(fontLinks) && html.includes(iconLink)) {
   console.log("preload already present");
   process.exit(0);
 }
-const updated = html.replace(
-  '<link rel="preload"',
-  `${links}\n    <link rel="preload"`,
-);
+
+const inject = [fontLinks, iconLink].filter(Boolean).join("\n    ");
+const updated = html.replace(marker, `${inject}\n    ${marker}`);
+
 writeFileSync(join(dist, "index.html"), updated);
-console.log(`injected ${fonts.length} font preloads`);
+console.log(`injected ${fonts.length} font preloads${vendorIcons ? ` + vendor-icons modulepreload` : ""}`);
