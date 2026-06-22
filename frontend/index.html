@@ -8,7 +8,6 @@
   <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <link rel="preconnect" href="https://images.unsplash.com" />
   <link rel="preload" as="image" href="/logo-navbar.webp" fetchpriority="high" />
 
   <!-- SEO: Fallback meta tags (overridden by Helmet at runtime) -->
@@ -43,7 +42,14 @@
 </head>
 
 <body>
-  <div id="root"></div>
+  <div id="root">
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;gap:24px;background:#fafafa;color:#64748b;font-family:system-ui,sans-serif">
+      <img src="/logo-navbar.webp" alt="Sefya Dental Studio" width="177" height="84" style="height:64px;width:auto" />
+      <div style="width:32px;height:32px;border:3px solid #e2e8f0;border-top-color:#ff91a4;border-radius:50%;box-sizing:border-box;animation:s 0.8s linear infinite"></div>
+      <p style="margin:0;font-size:14px">Memuat...</p>
+    </div>
+    <style>@keyframes s{to{transform:rotate(360deg)}}</style>
+  </div>
   <script type="module" src="/src/main.jsx"></script>
 </body>
 

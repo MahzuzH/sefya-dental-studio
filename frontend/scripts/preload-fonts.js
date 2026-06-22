@@ -15,21 +15,25 @@ const fontLinks = fonts
   .map((f) => `<link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/${f}">`)
   .join("\n    ");
 
-const vendorIcons = files.find((f) => f.startsWith("vendor-icons-") && f.endsWith(".js"));
-const iconLink = vendorIcons
-  ? `<link rel="modulepreload" crossorigin href="/assets/${vendorIcons}">`
-  : "";
+let html = readFileSync(join(dist, "index.html"), "utf8");
 
-const html = readFileSync(join(dist, "index.html"), "utf8");
-
-const marker = '<link rel="preload" as="image"';
-if (html.includes(fontLinks) && html.includes(iconLink)) {
+if (html.includes("onload=")) {
   console.log("preload already present");
   process.exit(0);
 }
 
-const inject = [fontLinks, iconLink].filter(Boolean).join("\n    ");
-const updated = html.replace(marker, `${inject}\n    ${marker}`);
+// Convert render-blocking stylesheet to async preload
+html = html.replace(
+  /<link rel="stylesheet"([^>]*?)>/,
+  (_, attrs) =>
+    `<link rel="preload" as="style"${attrs} onload="this.rel='stylesheet'">\n  <noscript><link rel="stylesheet"${attrs}></noscript>`,
+);
 
-writeFileSync(join(dist, "index.html"), updated);
-console.log(`injected ${fonts.length} font preloads${vendorIcons ? ` + vendor-icons modulepreload` : ""}`);
+// Inject font preloads
+html = html.replace(
+  '<link rel="preload" as="image"',
+  `${fontLinks}\n    <link rel="preload" as="image"`,
+);
+
+writeFileSync(join(dist, "index.html"), html);
+console.log(`injected ${fonts.length} font preloads + async CSS`);
