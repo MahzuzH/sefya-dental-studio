@@ -84,11 +84,11 @@ const Hero = () => {
               <picture>
                 <source
                   type="image/webp"
-                  srcSet="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=400&h=500&fm=webp 400w, https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=800&h=1000&fm=webp 800w, https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=1200&h=1500&fm=webp 1200w"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 600px"
+                  srcSet="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=300&h=400&fm=webp 300w, https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=600&h=750&fm=webp 600w, https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=900&h=1125&fm=webp 900w"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 450px"
                 />
                 <img
-                  src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=800&h=1000"
+                  src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=600&h=750"
                   alt="Ruang Perawatan Klinik Gigi Modern"
                   width="800"
                   height="1000"

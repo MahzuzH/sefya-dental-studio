@@ -1,3 +1,4 @@
+import "@aejkatappaja/phantom-ui";
 import { Helmet } from "react-helmet-async";
 import { useEffect, useState, useMemo, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";

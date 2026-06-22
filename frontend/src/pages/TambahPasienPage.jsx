@@ -1,3 +1,4 @@
+import "@aejkatappaja/phantom-ui";
 import { Helmet } from "react-helmet-async";
 import { Sidebar } from "@/components/Sidebar";
 import { Card, CardContent } from "@/components/ui/card";
